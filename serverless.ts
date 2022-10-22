@@ -5,7 +5,7 @@ import hello from '@functions/hello';
 const serverlessConfiguration: AWS = {
   service: 'trade-game-backend',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild'],
+  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention'],
   provider: {
     name: 'aws',
     runtime: 'nodejs16.x',
@@ -31,6 +31,7 @@ const serverlessConfiguration: AWS = {
       platform: 'node',
       concurrency: 10,
     },
+    logRetentionInDays: 7,
   },
 };
 
