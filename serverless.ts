@@ -9,6 +9,7 @@ const serverlessConfiguration: AWS = {
   provider: {
     name: 'aws',
     runtime: 'nodejs16.x',
+    stage: '${opt:stage, "dev"}',
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
@@ -33,6 +34,29 @@ const serverlessConfiguration: AWS = {
     },
     logRetentionInDays: 7,
   },
+  resources: {
+    Resources: {
+      ApiGatewayRestApi: {
+        Type: 'AWS::ApiGateway::RestApi',
+        Properties: {
+          Name: '${self:service}-${self:provider.stage}'
+        }
+      },
+      GatewayResponseResourceNotFound: {
+        Type: 'AWS::ApiGateway::GatewayResponse',
+        Properties: {
+          RestApiId: {
+            Ref: 'ApiGatewayRestApi'
+          },
+          ResponseType: 'BAD_REQUEST_BODY',
+          StatusCode: '422',
+          ResponseTemplates: {
+            'application/json': "{\"message\": \"$context.error.message\", \"error\": \"$context.error.validationErrorString\"}"
+          }
+        }
+      }
+    }
+  }
 };
 
 module.exports = serverlessConfiguration;
