@@ -8,31 +8,16 @@ permissions:
   contents: read  # This is required for actions/checkout
 
 env:
-  NODEJS_VERSION: 16.x
   # PR number
   VERSION: pr-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
-  AWS_REGION: us-east-1
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ env.NODEJS_VERSION }}
-        uses: actions/setup-node@v1
+      - name: 'Deploying backend to stage: ${{ env.VERSION }}'
+        uses: './.github/actions/sls-deploy'
         with:
-          node-version: ${{ env.NODEJS_VERSION }}
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/DeployerRole
-          role-session-name: gha_deployer
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Deploy backend
-        shell: bash
-        run: |
-          npm install
-          npm run deploy -- --conceal --stage ${{env.VERSION}}
+          stage: ${{ env.VERSION }}
+          aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}

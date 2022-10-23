@@ -1,0 +1,35 @@
+name: sls-deploy
+description: Deploys a Serverless Framework service
+inputs:
+  stage:
+    description: Stage to be deployed to
+    required: true
+  aws-account-id:
+    description: AWS Account Id of target environment
+    required: true
+  aws-region:
+    description: AWS region to deploy to
+    required: false
+    default: us-east-1
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v2
+    - name: Setup Node.js 16
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::${{ input.aws-account-id }}:role/DeployerRole
+        role-session-name: gha_deployer
+        aws-region: ${{ input.aws-region }}
+
+    - name: Deploy backend
+      shell: bash
+      run: |
+        npm install
+        npm run deploy -- --conceal --stage ${{ input.stage }}
