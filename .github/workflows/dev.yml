@@ -1,0 +1,24 @@
+name: Deploy Backend Dev
+
+on:
+  pull_request:
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+env:
+  # PR number
+  VERSION: pr-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: 'Deploying backend to stage: ${{ env.VERSION }}'
+        uses: './.github/actions/sls-deploy'
+        with:
+          stage: ${{ env.VERSION }}
+          aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
