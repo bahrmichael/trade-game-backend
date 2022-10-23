@@ -25,7 +25,7 @@ const serverlessConfiguration: AWS = {
     },
     iam: {
       deploymentRole: {
-        'Fn::Sub': 'arn:aws:iam::${AWS::AccountId}:role/${self:service}-CloudFormationExecutionRole'
+        'Fn::Sub': 'arn:aws:iam::${env:AWS_ACCOUNT_ID}:role/${self:service}-CloudFormationExecutionRole'
       }
     }
   },

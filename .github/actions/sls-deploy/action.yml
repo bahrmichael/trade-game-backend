@@ -32,4 +32,4 @@ runs:
       shell: bash
       run: |
         npm install
-        npm run deploy -- --conceal --stage ${{ inputs.stage }}
+        AWS_ACCOUNT_ID=${{ inputs.aws-account-id }} npm run deploy -- --conceal --stage ${{ inputs.stage }}
