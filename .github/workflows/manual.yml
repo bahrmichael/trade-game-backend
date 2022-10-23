@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: {{ inputs.ref }}
+          ref: ${{ inputs.ref }}
       - name: 'Deploying backend to stage: ${{ env.VERSION }}'
         uses: './.github/actions/sls-deploy'
         with:
