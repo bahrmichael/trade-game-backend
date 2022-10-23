@@ -1,0 +1,41 @@
+name: Deploy Backend
+
+on:
+  push:
+#    branches:
+#      - main
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+env:
+  NODEJS_VERSION: 16.x
+  VERSION: 20221023
+  AWS_REGION: us-east-1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ env.NODEJS_VERSION }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODEJS_VERSION }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/DeployerRole
+          role-session-name: gha_deployer
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy backend
+        shell: bash
+        run: |
+          npm install
+          export STAGE=${{env.VERSION}}
+          npm run build
+          npm run deploy -- --conceal
