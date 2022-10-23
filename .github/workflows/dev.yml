@@ -10,7 +10,7 @@ permissions:
 env:
   NODEJS_VERSION: 16.x
   # PR number
-  VERSION: $(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+  VERSION: pr-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
   AWS_REGION: us-east-1
 
 jobs:
