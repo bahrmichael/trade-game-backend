@@ -22,6 +22,11 @@ const serverlessConfiguration: AWS = {
       projectGroup: 'trade-game',
       project: '${self:service}',
       stage: '${self:provider.stage}',
+    },
+    iam: {
+      deploymentRole: {
+        'Fn::Sub': 'arn:aws:iam::${AWS::AccountId}:role/${self:service}-CloudFormationExecutionRole'
+      }
     }
   },
   // import the function via paths
