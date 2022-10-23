@@ -36,5 +36,4 @@ jobs:
         shell: bash
         run: |
           npm install
-          export STAGE=${{env.VERSION}}
-          npm run deploy -- --conceal
+          npm run deploy -- --conceal --stage ${{env.VERSION}}
