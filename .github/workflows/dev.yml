@@ -1,9 +1,7 @@
-name: Deploy Backend Main
+name: Deploy Backend Dev
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -11,7 +9,8 @@ permissions:
 
 env:
   NODEJS_VERSION: 16.x
-  VERSION: 20221023
+  # PR number
+  VERSION: $(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
   AWS_REGION: us-east-1
 
 jobs:
