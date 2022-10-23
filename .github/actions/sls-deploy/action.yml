@@ -24,12 +24,12 @@ runs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        role-to-assume: arn:aws:iam::${{ input.aws-account-id }}:role/DeployerRole
+        role-to-assume: arn:aws:iam::${{ inputs.aws-account-id }}:role/DeployerRole
         role-session-name: gha_deployer
-        aws-region: ${{ input.aws-region }}
+        aws-region: ${{ inputs.aws-region }}
 
     - name: Deploy backend
       shell: bash
       run: |
         npm install
-        npm run deploy -- --conceal --stage ${{ input.stage }}
+        npm run deploy -- --conceal --stage ${{ inputs.stage }}
