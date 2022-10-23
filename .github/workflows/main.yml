@@ -23,4 +23,4 @@ jobs:
         uses: './.github/actions/sls-deploy'
         with:
           stage: ${{ env.VERSION }}
-          aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
+          aws-account-id: ${{ secrets.PROD_AWS_ACCOUNT_ID }}

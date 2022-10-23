@@ -11,6 +11,10 @@ on:
         description: 'The branch, tag or SHA to checkout'
         required: false
         type: string
+      aws-account-id:
+        description: 'The AWS account id'
+        required: true
+        type: string
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -32,4 +36,4 @@ jobs:
         uses: './.github/actions/sls-deploy'
         with:
           stage: ${{ env.VERSION }}
-          aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
+          aws-account-id: ${{ inputs.aws-account-id }}
