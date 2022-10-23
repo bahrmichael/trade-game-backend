@@ -15,6 +15,7 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    concurrency: main
 
     steps:
       - uses: actions/checkout@v2
