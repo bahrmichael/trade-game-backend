@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
       - name: 'Deploying backend to stage: ${{ env.VERSION }}'
         uses: './.github/actions/sls-deploy'
         with:
