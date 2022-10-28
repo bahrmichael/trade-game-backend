@@ -31,8 +31,8 @@ jobs:
           role-session-name: gha_deployer
           aws-region: us-east-1
 
-      - name: Deploy backend
+      - name: Remove backend
         shell: bash
         run: |
           npm install
-          npm run remove -- --conceal --stage ${{ env.VERSION }}
+          npm run remove -- --stage ${{ env.VERSION }}
