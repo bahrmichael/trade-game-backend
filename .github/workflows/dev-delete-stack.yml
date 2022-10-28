@@ -1,0 +1,38 @@
+name: Deploy Backend Dev
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+env:
+  # PR number
+  VERSION: pr-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    concurrency: ci-${{ github.ref }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.DEV_AWS_ACCOUNT_ID }}:role/trade-game-backend-DeployerRole
+          role-session-name: gha_deployer
+          aws-region: ${{ inputs.aws-region }}
+
+      - name: Deploy backend
+        shell: bash
+        run: |
+          npm install
+          npm run remove -- --conceal --stage ${{ env.VERSION }}
