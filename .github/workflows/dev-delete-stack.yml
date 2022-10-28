@@ -29,7 +29,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::${{ secrets.DEV_AWS_ACCOUNT_ID }}:role/trade-game-backend-DeployerRole
           role-session-name: gha_deployer
-          aws-region: ${{ inputs.aws-region }}
+          aws-region: us-east-1
 
       - name: Deploy backend
         shell: bash
