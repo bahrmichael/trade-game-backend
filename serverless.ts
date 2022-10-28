@@ -5,7 +5,7 @@ import hello from '@functions/hello';
 const serverlessConfiguration: AWS = {
   service: 'trade-game-backend',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention', 'serverless-iam-roles-per-function'],
+  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention', 'serverless-iam-roles-per-function', 'serverless-s3-remover', 'serverless-deployment-bucket'],
   provider: {
     name: 'aws',
     runtime: 'nodejs16.x',
@@ -41,6 +41,13 @@ const serverlessConfiguration: AWS = {
       concurrency: 10,
     },
     logRetentionInDays: 7,
+    deploymentBucket: {
+      name: '${self:service}-deployment-bucket',
+      blockPublicAccess: true,
+    },
+    remover: {
+      buckets: ['${self:service}-deployment-bucket']
+    }
   },
   resources: {
     Resources: {
