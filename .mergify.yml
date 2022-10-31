@@ -19,6 +19,7 @@ pull_request_rules:
                   - title~=update .* monorepo
                   - title~=update dependency
                   - title~=update .* action to \w+
+                  - title~=pin .* action to \w+
           - author=dependabot[bot]
       - -label=major-upgrade
     actions:
