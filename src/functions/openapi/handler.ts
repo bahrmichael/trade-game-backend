@@ -12,7 +12,7 @@ export const main = async (event) => {
       headers: {
         'content-type': 'application/json'
       },
-      body: body1
+      body: body1.toString()
     }
   }
 
