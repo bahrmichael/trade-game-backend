@@ -26,7 +26,7 @@
     "serverless-iam-roles-per-function": "^3.2.0",
     "serverless-plugin-log-retention": "^2.0.0",
     "ts-node": "^10.4.0",
-    "tsconfig-paths": "^3.9.0",
+    "tsconfig-paths": "^4.0.0",
     "typescript": "^4.1.3"
   },
   "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
