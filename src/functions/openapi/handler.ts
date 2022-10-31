@@ -2,13 +2,17 @@ const { readFileSync } = require('fs');
 
 export const main = async (event) => {
 
+  console.log('path', event.path)
+
   if (event.path === '/openapi.json') {
+    let body1 = readFileSync('openapi.json');
+    console.log(body1)
     return {
       statusCode: 200,
       headers: {
         'content-type': 'application/json'
       },
-      body: readFileSync('./openapi.json')
+      body: body1
     }
   }
 
