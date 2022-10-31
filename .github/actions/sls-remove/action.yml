@@ -15,14 +15,14 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
     - name: Setup Node.js 16
       uses: actions/setup-node@v3
       with:
         node-version: 16.x
 
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838 # tag=v1
       with:
         role-to-assume: arn:aws:iam::${{ inputs.aws-account-id }}:role/trade-game-backend-DeployerRole
         role-session-name: gha_deployer
