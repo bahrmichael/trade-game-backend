@@ -23,9 +23,9 @@ const serverlessConfiguration: AWS = {
       project: '${self:service}',
       stage: '${self:provider.stage}',
     },
-    // iam: {
-    //   deploymentRole: 'arn:aws:iam::${aws:accountId}:role/${self:service}-CloudFormationExecutionRole'
-    // }
+    iam: {
+      deploymentRole: 'arn:aws:iam::${aws:accountId}:role/${self:service}-CloudFormationExecutionRole'
+    }
   },
   // import the function via paths
   functions,
