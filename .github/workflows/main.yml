@@ -18,7 +18,7 @@ jobs:
     concurrency: main
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791 # tag=v2
       - name: 'Deploying backend to stage: ${{ env.VERSION }}'
         uses: './.github/actions/sls-deploy'
         with:
