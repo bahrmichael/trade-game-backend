@@ -24,6 +24,7 @@
     "serverless": "^3.0.0",
     "serverless-esbuild": "^1.23.3",
     "serverless-iam-roles-per-function": "^3.2.0",
+    "serverless-openapi-documenter": "^0.0.23",
     "serverless-plugin-log-retention": "^2.0.0",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^4.0.0",

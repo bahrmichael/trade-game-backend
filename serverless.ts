@@ -1,11 +1,11 @@
 import type { AWS } from '@serverless/typescript';
 
-import hello from '@functions/hello';
+import * as functions from "@functions/index";
 
 const serverlessConfiguration: AWS = {
   service: 'trade-game-backend',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention', 'serverless-iam-roles-per-function'],
+  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention', 'serverless-iam-roles-per-function', 'serverless-openapi-documenter'],
   provider: {
     name: 'aws',
     runtime: 'nodejs16.x',
@@ -23,12 +23,12 @@ const serverlessConfiguration: AWS = {
       project: '${self:service}',
       stage: '${self:provider.stage}',
     },
-    iam: {
-      deploymentRole: 'arn:aws:iam::${aws:accountId}:role/${self:service}-CloudFormationExecutionRole'
-    }
+    // iam: {
+    //   deploymentRole: 'arn:aws:iam::${aws:accountId}:role/${self:service}-CloudFormationExecutionRole'
+    // }
   },
   // import the function via paths
-  functions: { hello },
+  functions,
   package: { individually: true },
   custom: {
     esbuild: {
@@ -41,6 +41,10 @@ const serverlessConfiguration: AWS = {
       concurrency: 10,
     },
     logRetentionInDays: 7,
+    documentation: {
+      version: '1',
+      models: []
+    }
   },
   resources: {
     Resources: {

@@ -13,6 +13,15 @@ export default {
             'application/json': schema,
           },
         },
+        documentation: {
+          summary: 'Post hello',
+          methodResponses: [{
+            statusCode: 200,
+            responseBody: {
+              description: 'a response body'
+            }
+          }]
+        }
       },
     },
   ],
