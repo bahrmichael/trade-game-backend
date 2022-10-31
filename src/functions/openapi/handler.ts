@@ -8,7 +8,7 @@ export const main = async (event) => {
       headers: {
         'content-type': 'application/json'
       },
-      body: readFileSync('./etc/openapi.json')
+      body: readFileSync('./openapi.json')
     }
   }
 
