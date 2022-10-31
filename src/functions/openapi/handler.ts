@@ -29,7 +29,7 @@ export const main = async (event) => {
             <script>
               SwaggerUIBundle({
                 dom_id: '#swagger',
-                url: '/openapi.json'
+                url: './openapi.json'
             });
             </script>
         </body>
