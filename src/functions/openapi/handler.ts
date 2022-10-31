@@ -25,7 +25,7 @@ export const main = async (event) => {
             <script>
               SwaggerUIBundle({
                 dom_id: '#swagger',
-                url: 'https://petstore3.swagger.io/api/v3/openapi.json'
+                url: '/openapi.json'
             });
             </script>
         </body>
