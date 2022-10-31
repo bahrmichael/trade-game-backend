@@ -18,7 +18,7 @@ pull_request_rules:
                   - title~=update .* digest to \w+
                   - title~=update .* monorepo
                   - title~=update dependency
-                  - title~=update actions
+                  - title~=update .* action to \w+
           - author=dependabot[bot]
       - -label=major-upgrade
     actions:
