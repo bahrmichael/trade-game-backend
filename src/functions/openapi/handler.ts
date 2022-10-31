@@ -1,4 +1,16 @@
-export const main = async () => {
+const { readFileSync } = require('fs');
+
+export const main = async (event) => {
+
+  if (event.path === '/openapi.json') {
+    return {
+      statusCode: 200,
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: readFileSync('./etc/openapi.json')
+    }
+  }
 
   const body = `<!DOCTYPE html>
         <html lang="en">
@@ -13,7 +25,7 @@ export const main = async () => {
             <script>
               SwaggerUIBundle({
                 dom_id: '#swagger',
-                url: 'https://gist.github.com/bahrmichael/38ea2cb686c0a2b69278ce39607a6046'
+                url: 'https://petstore3.swagger.io/api/v3/openapi.json'
             });
             </script>
         </body>

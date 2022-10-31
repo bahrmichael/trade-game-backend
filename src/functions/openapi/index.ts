@@ -9,5 +9,11 @@ export default {
         path: 'openapi',
       },
     },
+    {
+      http: {
+        method: 'get',
+        path: 'openapi.json',
+      },
+    },
   ],
 };
