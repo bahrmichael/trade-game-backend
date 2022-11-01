@@ -18,6 +18,9 @@
         "properties": {
           "message": {
             "type": "string"
+          },
+          "event": {
+            "type": "object"
           }
         }
       }

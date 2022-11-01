@@ -70,6 +70,9 @@ const serverlessConfiguration: AWS = {
                         message: {
                             type: 'string',
                         },
+                        event: {
+                            type: 'object'
+                        }
                     }
                 },
             }]
