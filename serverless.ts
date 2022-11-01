@@ -42,14 +42,18 @@ const serverlessConfiguration: AWS = {
         },
         logRetentionInDays: 7,
         documentation: {
-            version: '1',
+            title: 'Trade Game API',
+            version: '${self:provider.stage}',
+            servers: [{
+                url: "https://7s2sssscfd.execute-api.us-east-1.amazonaws.com/${self:provider.stage}/",
+                description: 'The server'
+            }],
             models: [{
                 name: 'PostHelloRequest',
                 description: 'This is a request',
                 contentType: 'application/json',
                 schema: {
                     '$schema': "http://json-schema.org/draft-04/schema#",
-                    // ...postHelloSchema.default.properties
                     properties: postHelloSchema.default.properties,
                 },
             }, {

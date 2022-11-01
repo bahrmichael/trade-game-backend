@@ -28,12 +28,17 @@
     "securitySchemes": {}
   },
   "info": {
-    "title": "",
+    "title": "Trade Game API",
     "description": "",
-    "version": "1",
+    "version": "dev",
     "termsOfService": ""
   },
-  "servers": [],
+  "servers": [
+    {
+      "url": "https://7s2sssscfd.execute-api.us-east-1.amazonaws.com/dev/",
+      "description": "The server"
+    }
+  ],
   "paths": {
     "/hello": {
       "post": {
