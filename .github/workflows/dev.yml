@@ -13,6 +13,7 @@ env:
 
 jobs:
   deploy:
+    if: github.event.commits[0].author.name == 'renovate[bot]'
     runs-on: ubuntu-latest
     concurrency: ci-${{ github.ref }}
 
