@@ -19,7 +19,13 @@ export default {
             statusCode: 200,
             responseBody: {
               description: 'a response body'
-            }
+            },
+            requestModels: {
+              'application/json': 'PostHelloRequest'
+            },
+            responseModels: {
+              'application/json': 'PostHelloResponse'
+            },
           }]
         }
       },

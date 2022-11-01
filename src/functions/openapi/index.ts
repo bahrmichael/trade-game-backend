@@ -16,6 +16,18 @@ export default {
       http: {
         method: 'get',
         path: 'openapi.json',
+        documentation: {
+          summary: 'Get OpenAPI',
+          methodResponses: [{
+            statusCode: 200,
+            responseBody: {
+              description: 'a response body'
+            },
+            responseModels: {
+              'application/json': 'GetOpenAPIResponse'
+            },
+          }]
+        }
       },
     },
   ],

@@ -1,6 +1,7 @@
 import type { AWS } from '@serverless/typescript';
 
 import * as functions from "@functions/index";
+import * as postHelloSchema from "@functions/hello/schema";
 
 const serverlessConfiguration: AWS = {
   service: 'trade-game-backend',
@@ -43,7 +44,27 @@ const serverlessConfiguration: AWS = {
     logRetentionInDays: 7,
     documentation: {
       version: '1',
-      models: []
+      models: [{
+        name: 'PostHelloRequest',
+        description: 'This is a request',
+        contentType: 'application/json',
+        schema: postHelloSchema,
+        /*
+        {
+          '$schema': "http://json-schema.org/draft-04/schema#",
+          properties: {
+            SomeObject: {
+              type: 'object',
+              properties: {
+                SomeAttribute: {
+                  type: 'string'
+                }
+              }
+            }
+          }
+        }
+         */
+      }]
     }
   },
   resources: {

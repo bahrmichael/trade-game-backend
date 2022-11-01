@@ -20,6 +20,21 @@
           }
         }
       }
+    },
+    "/openapi.json": {
+      "get": {
+        "summary": "Get OpenAPI",
+        "description": "",
+        "operationId": "trade-game-backend-dev-openapi",
+        "parameters": [],
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "a response body",
+            "content": {}
+          }
+        }
+      }
     }
   }
 }
