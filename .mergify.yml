@@ -18,10 +18,7 @@ pull_request_rules:
         message: Automatically approving non-major dependency upgrade
   - name: Auto-merge upgrades
     conditions:
-      - or:
-          - author=renovate[bot]
-          - author=dependabot[bot]
-      - -label=major-upgrade
+      - check-success=deploy
     actions:
       merge:
         method: squash
