@@ -16,6 +16,7 @@
     "@middy/http-json-body-parser": "^3.4.0"
   },
   "devDependencies": {
+    "@motymichaely/serverless-openapi-documentation": "^0.5.3",
     "@serverless/typescript": "^3.0.0",
     "@types/aws-lambda": "^8.10.71",
     "@types/node": "^18.0.0",

@@ -1,33 +1,79 @@
 {
   "openapi": "3.0.0",
-  "info": {
-    "title": "trade-game-backend",
-    "description": "",
-    "version": "1"
+  "components": {
+    "schemas": {
+      "PostHelloRequest": {
+        "default": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        }
+      },
+      "PostHelloResponse": {
+        "properties": {
+          "message": {
+            "properties": {
+              "type": "string"
+            }
+          },
+          "event": {
+            "properties": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {}
   },
+  "info": {
+    "title": "",
+    "description": "",
+    "version": "1",
+    "termsOfService": ""
+  },
+  "servers": [],
   "paths": {
     "/hello": {
       "post": {
+        "operationId": "hello",
         "summary": "Post hello",
-        "description": "",
-        "operationId": "trade-game-backend-dev-hello",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostHelloRequest"
+              }
+            }
+          }
+        },
         "parameters": [],
-        "tags": [],
         "responses": {
           "200": {
             "description": "a response body",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostHelloResponse"
+                }
+              }
+            }
           }
         }
       }
     },
     "/openapi.json": {
       "get": {
+        "operationId": "openapi",
         "summary": "Get OpenAPI",
-        "description": "",
-        "operationId": "trade-game-backend-dev-openapi",
         "parameters": [],
-        "tags": [],
         "responses": {
           "200": {
             "description": "a response body",
