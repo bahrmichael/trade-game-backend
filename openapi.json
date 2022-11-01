@@ -3,17 +3,8 @@
   "components": {
     "schemas": {
       "PostHelloRequest": {
-        "default": {
-          "$schema": "http://json-schema.org/draft-04/schema#",
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ]
+        "name": {
+          "type": "string"
         }
       },
       "PostHelloResponse": {
@@ -52,7 +43,8 @@
                 "$ref": "#/components/schemas/PostHelloRequest"
               }
             }
-          }
+          },
+          "description": "An info object"
         },
         "parameters": [],
         "responses": {

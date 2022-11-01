@@ -15,6 +15,9 @@ export default {
         },
         documentation: {
           summary: 'Post hello',
+          requestBody: {
+            description: 'An info object',
+          },
           requestModels: {
             'application/json': 'PostHelloRequest',
           },
