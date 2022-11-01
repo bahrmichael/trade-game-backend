@@ -4,13 +4,8 @@
     "schemas": {
       "PostHelloRequest": {
         "properties": {
-          "SomeObject": {
-            "type": "object",
-            "properties": {
-              "SomeAttribute": {
-                "type": "string"
-              }
-            }
+          "name": {
+            "type": "string"
           }
         }
       },
@@ -20,7 +15,12 @@
             "type": "string"
           },
           "event": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
           }
         }
       }
