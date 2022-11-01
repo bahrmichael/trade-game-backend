@@ -46,7 +46,6 @@ const serverlessConfiguration: AWS = {
             version: '${self:provider.stage}',
             servers: [{
                 url: "https://7s2sssscfd.execute-api.us-east-1.amazonaws.com/${self:provider.stage}/",
-                description: 'The server'
             }],
             models: [{
                 name: 'PostHelloRequest',
@@ -66,10 +65,6 @@ const serverlessConfiguration: AWS = {
                         message: {
                             type: 'string',
                         },
-                        event: {
-                            type: 'object',
-                            properties: postHelloSchema.default.properties,
-                        }
                     }
                 },
             }]
