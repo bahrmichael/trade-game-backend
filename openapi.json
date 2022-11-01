@@ -3,21 +3,21 @@
   "components": {
     "schemas": {
       "PostHelloRequest": {
-        "name": {
-          "type": "string"
+        "properties": {
+          "SomeObject": {
+            "type": "object",
+            "properties": {
+              "SomeAttribute": {
+                "type": "string"
+              }
+            }
+          }
         }
       },
       "PostHelloResponse": {
         "properties": {
           "message": {
-            "properties": {
-              "type": "string"
-            }
-          },
-          "event": {
-            "properties": {
-              "type": "object"
-            }
+            "type": "string"
           }
         }
       }
