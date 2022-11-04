@@ -5,7 +5,6 @@
     "helpers:pinGitHubActionDigests"
   ],
   "stabilityDays": 21,
-  "internalChecksFilter": "strict",
   "dependencyDashboard": true,
   "major": {
     "dependencyDashboardApproval": true,
