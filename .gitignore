@@ -9,4 +9,6 @@ jspm_packages
 .esbuild
 .idea
 
+notes.md
 openapi.json
+.DS_Store
