@@ -31,6 +31,8 @@ const serverlessConfiguration: AWS = {
   functions,
   package: {individually: true},
   custom: {
+    // later replace with a shared URL like https://api.tradegame.dev
+    domain: 'https://7s2sssscfd.execute-api.us-east-1.amazonaws.com',
     esbuild: {
       bundle: true,
       minify: false,
@@ -45,7 +47,7 @@ const serverlessConfiguration: AWS = {
       title: 'Trade Game API',
       version: '${self:provider.stage}',
       servers: [{
-        url: "https://7s2sssscfd.execute-api.us-east-1.amazonaws.com/${self:provider.stage}/",
+        url: "${self:custom.domain}/${self:provider.stage}/",
       }],
       models: [{
         name: 'PostHelloRequest',
