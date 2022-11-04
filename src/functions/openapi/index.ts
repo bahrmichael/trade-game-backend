@@ -12,6 +12,7 @@ export default {
         path: 'openapi',
         documentation: {
           summary: 'Get the OpenAPI UI for this API',
+          tags: ['openapi'],
           methodResponses: [{
             statusCode: 200,
             responseModels: {
@@ -27,6 +28,7 @@ export default {
         path: 'openapi.json',
         documentation: {
           summary: 'Get the OpenAPI Spec for this API',
+          tags: ['openapi'],
           methodResponses: [{
             statusCode: 200,
             responseModels: {
