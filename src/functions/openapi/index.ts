@@ -10,6 +10,15 @@ export default {
       http: {
         method: 'get',
         path: 'openapi',
+        documentation: {
+          summary: 'Get the OpenAPI UI for this API',
+          methodResponses: [{
+            statusCode: 200,
+            responseModels: {
+              'text/html': 'GetOpenApiUi'
+            },
+          }]
+        }
       },
     },
     {
@@ -17,14 +26,11 @@ export default {
         method: 'get',
         path: 'openapi.json',
         documentation: {
-          summary: 'Get OpenAPI',
+          summary: 'Get the OpenAPI Spec for this API',
           methodResponses: [{
             statusCode: 200,
-            responseBody: {
-              description: 'a response body'
-            },
             responseModels: {
-              'application/json': 'GetOpenAPIResponse'
+              'application/json': 'GetOpenApiResponse'
             },
           }]
         }

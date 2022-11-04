@@ -14,18 +14,12 @@ export default {
           },
         },
         documentation: {
-          summary: 'Post hello',
-          requestBody: {
-            description: 'An info object',
-          },
+          summary: 'Post your name and get a hello!',
           requestModels: {
             'application/json': 'PostHelloRequest',
           },
           methodResponses: [{
             statusCode: 200,
-            responseBody: {
-              description: 'a response body'
-            },
             responseModels: {
               'application/json': 'PostHelloResponse'
             },

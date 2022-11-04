@@ -49,7 +49,6 @@ const serverlessConfiguration: AWS = {
       }],
       models: [{
         name: 'PostHelloRequest',
-        description: 'This is a request',
         contentType: 'application/json',
         schema: {
           '$schema': "http://json-schema.org/draft-04/schema#",
@@ -57,7 +56,6 @@ const serverlessConfiguration: AWS = {
         },
       }, {
         name: 'PostHelloResponse',
-        description: 'This is a response',
         contentType: 'application/json',
         schema: {
           '$schema': "http://json-schema.org/draft-04/schema#",
