@@ -5,6 +5,7 @@ import { middyfy } from '@libs/lambda';
 import schema from '../hello/schema';
 
 const hello: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
+  console.log(event.headers)
   const apiKey = event.headers['X-API-KEY']
   if (apiKey !== 'VerySecure') {
     return {
