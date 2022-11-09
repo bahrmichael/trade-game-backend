@@ -49,6 +49,11 @@ const serverlessConfiguration: AWS = {
       servers: [{
         url: "${self:custom.domain}/${self:provider.stage}/",
       }],
+      security: [{
+        name: 'X-API-KEY',
+        type: 'apiKey',
+        in: 'header',
+      }],
       models: [{
         name: 'PostHelloRequest',
         contentType: 'application/json',
