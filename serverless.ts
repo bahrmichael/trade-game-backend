@@ -29,7 +29,7 @@ const serverlessConfiguration: AWS = {
     }
   },
   functions,
-  package: {individually: true},
+  package: { individually: true },
   custom: {
     // later replace with a shared URL like https://api.tradegame.dev
     domain: 'https://7s2sssscfd.execute-api.us-east-1.amazonaws.com',
@@ -38,7 +38,7 @@ const serverlessConfiguration: AWS = {
       minify: false,
       sourcemap: true,
       target: 'node16',
-      define: {'require.resolve': undefined},
+      define: { 'require.resolve': undefined },
       platform: 'node',
       concurrency: 10,
     },
