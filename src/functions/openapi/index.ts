@@ -11,6 +11,7 @@ export default {
         method: 'get',
         path: 'openapi',
         documentation: {
+          operationId: 'getOpenApiUi',
           summary: 'Get the OpenAPI UI for this API',
           tags: ['openapi'],
           methodResponses: [{
@@ -27,6 +28,7 @@ export default {
         method: 'get',
         path: 'openapi.json',
         documentation: {
+          operationId: 'getOpenApiJson',
           summary: 'Get the OpenAPI Spec for this API',
           tags: ['openapi'],
           methodResponses: [{
