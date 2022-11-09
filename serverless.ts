@@ -32,7 +32,7 @@ const serverlessConfiguration: AWS = {
   package: { individually: true },
   custom: {
     // later replace with a shared URL like https://api.tradegame.dev
-    domain: 'https://7s2sssscfd.execute-api.us-east-1.amazonaws.com',
+    domain: 'https://7x8xc3sml0.execute-api.us-east-1.amazonaws.com',
     esbuild: {
       bundle: true,
       minify: false,
