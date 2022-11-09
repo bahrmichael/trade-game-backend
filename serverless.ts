@@ -1,11 +1,12 @@
-import type { AWS } from '@serverless/typescript';
+import type {AWS} from '@serverless/typescript';
 
-import hello from '@functions/hello';
+import * as functions from "@functions/index";
+import * as postHelloSchema from "@functions/hello/schema"
 
 const serverlessConfiguration: AWS = {
   service: 'trade-game-backend',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention', 'serverless-iam-roles-per-function'],
+  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention', 'serverless-iam-roles-per-function', '@motymichaely/serverless-openapi-documentation'],
   provider: {
     name: 'aws',
     runtime: 'nodejs16.x',
@@ -27,10 +28,11 @@ const serverlessConfiguration: AWS = {
       deploymentRole: 'arn:aws:iam::${aws:accountId}:role/${self:service}-CloudFormationExecutionRole'
     }
   },
-  // import the function via paths
-  functions: { hello },
+  functions,
   package: { individually: true },
   custom: {
+    // later replace with a shared URL like https://api.tradegame.dev
+    domain: 'https://7s2sssscfd.execute-api.us-east-1.amazonaws.com',
     esbuild: {
       bundle: true,
       minify: false,
@@ -41,6 +43,32 @@ const serverlessConfiguration: AWS = {
       concurrency: 10,
     },
     logRetentionInDays: 7,
+    documentation: {
+      title: 'Trade Game API',
+      version: '${self:provider.stage}',
+      servers: [{
+        url: "${self:custom.domain}/${self:provider.stage}/",
+      }],
+      models: [{
+        name: 'PostHelloRequest',
+        contentType: 'application/json',
+        schema: {
+          '$schema': "http://json-schema.org/draft-04/schema#",
+          properties: postHelloSchema.default.properties,
+        },
+      }, {
+        name: 'PostHelloResponse',
+        contentType: 'application/json',
+        schema: {
+          '$schema': "http://json-schema.org/draft-04/schema#",
+          properties: {
+            message: {
+              type: 'string',
+            },
+          }
+        },
+      }]
+    }
   },
   resources: {
     Resources: {

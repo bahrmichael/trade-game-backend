@@ -13,6 +13,18 @@ export default {
             'application/json': schema,
           },
         },
+        documentation: {
+          summary: 'Post your name and get a hello!',
+          requestModels: {
+            'application/json': 'PostHelloRequest',
+          },
+          methodResponses: [{
+            statusCode: 200,
+            responseModels: {
+              'application/json': 'PostHelloResponse'
+            },
+          }]
+        }
       },
     },
   ],

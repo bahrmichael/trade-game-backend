@@ -28,8 +28,14 @@ runs:
         role-session-name: gha_deployer
         aws-region: ${{ inputs.aws-region }}
 
+    - name: Install Dependencies
+      shell: bash
+      run: npm install
+
+    - name: Generate OpenAPI
+      shell: bash
+      run: npm run generate:openapi -- --stage ${{ inputs.stage }}
+
     - name: Deploy backend
       shell: bash
-      run: |
-        npm install
-        npm run deploy -- --conceal --stage ${{ inputs.stage }}
+      run: npm run deploy -- --conceal --stage ${{ inputs.stage }}
