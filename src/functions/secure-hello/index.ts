@@ -26,6 +26,18 @@ export default {
             responseModels: {
               'application/json': 'PostHelloResponse'
             },
+          }, {
+            statusCode: 401,
+            description: 'The request misses the right information for authentication.',
+            responseModels: {
+              'application/json': 'UnauthenticatedResponse'
+            },
+          }, {
+            statusCode: 403,
+            description: 'The request has the wrong authentication to access this API.',
+            responseModels: {
+              'application/json': 'UnauthorizedResponse'
+            },
           }]
         }
       },

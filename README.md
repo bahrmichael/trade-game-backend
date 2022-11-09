@@ -4,7 +4,11 @@ More to come...
 
 ## OpenAPI
 
-TODO: enable cors for swagger? shouldn't be necessary when running it from same instance?
+Debug openapi changes by running the command below, and paste it into editor.swagger.io.
+
+```
+serverless openapi generate -o openapi.yaml -f yaml && pbcopy < openapi.yaml
+```
 
 TODO: show intermediate step where we don't connect authorizers, and then add another step adding in custom authorizers
 

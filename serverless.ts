@@ -55,6 +55,30 @@ const serverlessConfiguration: AWS = {
         in: 'header',
       }],
       models: [{
+        name: 'UnauthenticatedResponse',
+        contentType: 'application/json',
+        schema: {
+          // only the $schema field is the minimum required schema to render a response if you don't want to specify a response
+          '$schema': "http://json-schema.org/draft-04/schema#",
+          properties: {
+            error: {
+              type: 'string',
+            }
+          }
+        },
+      }, {
+        name: 'UnauthorizedResponse',
+        contentType: 'application/json',
+        schema: {
+          // only the $schema field is the minimum required schema to render a response if you don't want to specify a response
+          '$schema': "http://json-schema.org/draft-04/schema#",
+          properties: {
+            error: {
+              type: 'string',
+            }
+          }
+        },
+      }, {
         name: 'PostHelloRequest',
         contentType: 'application/json',
         schema: {
