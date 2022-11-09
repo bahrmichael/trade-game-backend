@@ -7,7 +7,7 @@ import schema from '../hello/schema';
 const hello: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
   console.log(event)
   console.log(event.headers)
-  const apiKey = event.headers['X-API-KEY']
+  const apiKey = event.headers['x-api-key']
   if (apiKey !== 'VerySecure') {
     return {
       statusCode: 401,
