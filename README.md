@@ -10,5 +10,15 @@ Debug openapi changes by running the command below, and paste it into editor.swa
 serverless openapi generate -o openapi.yaml -f yaml && pbcopy < openapi.yaml
 ```
 
-TODO: show intermediate step where we don't connect authorizers, and then add another step adding in custom authorizers
+### Basic OpenAPI
+
+https://github.com/bahrmichael/trade-game-backend/pull/18
+
+### Secured with API Key
+
+https://github.com/bahrmichael/trade-game-backend/pull/22
+
+### Secured with Authorizer and JWT
+
+TODO: show custom authorizer in a follow up blog post on securing api routes
 
