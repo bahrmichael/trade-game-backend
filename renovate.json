@@ -4,6 +4,7 @@
     "config:base",
     "helpers:pinGitHubActionDigests"
   ],
+  "rangeStrategy": "pin",
   "stabilityDays": 21,
   "dependencyDashboard": true,
   "major": {
