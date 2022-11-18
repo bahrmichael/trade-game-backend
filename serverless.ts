@@ -101,6 +101,24 @@ const serverlessConfiguration: AWS = {
   },
   resources: {
     Resources: {
+      AuthStateTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          BillingMode: 'PAY_PER_REQUEST',
+          KeySchema: [{
+            AttributeName: 'state',
+            KeyType: 'HASH'
+          }],
+          AttributeDefinitions: [{
+            AttributeName: 'state',
+            AttributeType: 'S'
+          }],
+          TimeToLiveSpecification: {
+            AttributeName: 'timeToLive',
+            Enabled: true,
+          },
+        }
+      },
       ApiGatewayRestApi: {
         Type: 'AWS::ApiGateway::RestApi',
         Properties: {
