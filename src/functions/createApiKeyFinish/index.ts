@@ -33,7 +33,7 @@ export default {
     {
       Effect: 'Allow',
       Action: ['secretsmanager:GetSecretValue'],
-      Resource: ['arn:aws:secretsmanager:${aws:region}:${aws:accountId}:secret:discord_client_secret', 'discord_client_secret'],
+      Resource: ['arn:aws:secretsmanager:us-east-1:400662342367:secret:discord_client_secret-0NJgyw'],
     }
   ],
   tags: {
