@@ -44,7 +44,4 @@ runs:
 
     - name: Deploy backend
       shell: bash
-      run: |
-        export DISCORD_CLIENT_ID=${{ inputs.discord-client-id }}
-        export DISCORD_CLIENT_SECRET=${{ inputs.discord-client-secret }}
-        npm run deploy -- --conceal --stage ${{ inputs.stage }}
+      run: DISCORD_CLIENT_ID=${{ inputs.discord-client-id }} DISCORD_CLIENT_SECRET=${{ inputs.discord-client-secret }} npm run deploy -- --conceal --stage ${{ inputs.stage }}
