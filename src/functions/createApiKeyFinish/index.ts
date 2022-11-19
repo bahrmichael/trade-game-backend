@@ -3,8 +3,7 @@ import { handlerPath } from '@libs/handler-resolver';
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
   environmentVariables: {
-    CLIENT_ID: "${env:DISCORD_CLIENT_ID}",
-    CLIENT_SECRET: "${env:DISCORD_CLIENT_SECRET}",
+    DISCORD_SECRET: '${ssm:/aws/reference/secretsmanager/discord_secret}',
     AUTH_STATE_TABLE: { Ref: 'AuthStateTable' },
     REDIRECT_URL: "${self:custom.domain}/${self:provider.stage}/",
   },

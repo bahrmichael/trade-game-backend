@@ -11,12 +11,6 @@ inputs:
     description: AWS region to deploy to
     required: false
     default: us-east-1
-  discord-client-id:
-    description: The ID of the Discord Oauth2 client
-    required: true
-  discord-client-secret:
-    description: The secret of the Discord Oauth2 client
-    required: true
 
 runs:
   using: 'composite'
@@ -44,4 +38,4 @@ runs:
 
     - name: Deploy backend
       shell: bash
-      run: DISCORD_CLIENT_ID=${{ inputs.discord-client-id }} DISCORD_CLIENT_SECRET=${{ inputs.discord-client-secret }} npm run deploy -- --conceal --stage ${{ inputs.stage }}
+      run: npm run deploy -- --conceal --stage ${{ inputs.stage }}

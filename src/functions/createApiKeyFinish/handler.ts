@@ -10,9 +10,15 @@ const discord = axios.create({
   }
 })
 
-const {AUTH_STATE_TABLE, CLIENT_ID, CLIENT_SECRET, REDIRECT_URL} = process.env;
+const {AUTH_STATE_TABLE, DISCORD_SECRET, REDIRECT_URL} = process.env;
+
 
 export const main = async (event: APIGatewayProxyEvent) => {
+
+  console.log(DISCORD_SECRET)
+
+  const {clientId: CLIENT_ID, clientSecret: CLIENT_SECRET} = JSON.parse(DISCORD_SECRET);
+
   const {code, state} = event.queryStringParameters;
   const existingState = await ddb.send(new GetCommand({
     TableName: AUTH_STATE_TABLE,
