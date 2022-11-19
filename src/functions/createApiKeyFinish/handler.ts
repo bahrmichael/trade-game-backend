@@ -2,6 +2,8 @@ import {APIGatewayProxyEvent} from "aws-lambda";
 import {ddb} from "@libs/ddb-client";
 import {GetCommand} from "@aws-sdk/lib-dynamodb";
 import axios from "axios";
+import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
+const ssm = new SecretsManagerClient({});
 
 const discord = axios.create({
   baseURL: 'https://discord.com',
@@ -10,12 +12,10 @@ const discord = axios.create({
   }
 })
 
-const {AUTH_STATE_TABLE, CLIENT_ID, DISCORD_SECRET: CLIENT_SECRET, REDIRECT_URL} = process.env;
+const {AUTH_STATE_TABLE, CLIENT_ID, REDIRECT_URL} = process.env;
 
 
 export const main = async (event: APIGatewayProxyEvent) => {
-
-  console.log(CLIENT_SECRET)
 
   const {code, state} = event.queryStringParameters;
   const existingState = await ddb.send(new GetCommand({
@@ -27,9 +27,13 @@ export const main = async (event: APIGatewayProxyEvent) => {
     // todo: return 401
   }
 
+  const secretResponse = await ssm.send(new GetSecretValueCommand({SecretId: 'discord_client_secret'}))
+
+  console.log(secretResponse.SecretString)
+
   const res = await discord.post('/oauth2/token', {
     'client_id': CLIENT_ID,
-    'client_secret': CLIENT_SECRET,
+    'client_secret': secretResponse.SecretString,
     'grant_type': 'authorization_code',
     'code': code,
     'redirect_uri': REDIRECT_URL

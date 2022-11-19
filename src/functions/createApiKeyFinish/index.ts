@@ -31,6 +31,11 @@ export default {
       Action: ['dynamodb:GetItem'],
       Resource: { 'Fn::GetAtt': ['AuthStateTable', 'Arn' ] },
     },
+    {
+      Effect: 'Allow',
+      Action: ['ssm:GetParameter'],
+      Resource: 'arn:aws:ssm:${aws:region}:***:parameter/aws/reference/secretsmanager/discord_client_secret',
+    }
   ],
   tags: {
     function: 'create-api-key-finish'
