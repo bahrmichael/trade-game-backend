@@ -5,7 +5,7 @@ export default {
   environmentVariables: {
     CLIENT_ID: '${self:custom.discordClientId}',
     AUTH_STATE_TABLE: { Ref: 'AuthStateTable' },
-    REDIRECT_URL: "${self:custom.domain}/${self:provider.stage}/",
+    REDIRECT_URL: "${self:custom.domain}/${self:provider.stage}/api-key/finish",
   },
   events: [
     {
