@@ -32,7 +32,7 @@ export default {
     },
     {
       Effect: 'Allow',
-      Action: ['ssm:GetParameter'],
+      Action: ['secretsmanager:GetSecretValue'],
       Resource: 'arn:aws:ssm:${aws:region}:***:parameter/aws/reference/secretsmanager/discord_client_secret',
     }
   ],
