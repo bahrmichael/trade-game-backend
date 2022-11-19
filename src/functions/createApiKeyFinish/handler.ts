@@ -31,7 +31,7 @@ export const main = async (event: APIGatewayProxyEvent) => {
 
   console.log(secretResponse.SecretString)
 
-  const res = await discord.post('/oauth2/token', {
+  const tokenResponse = await discord.post('/oauth2/token', {
     'client_id': CLIENT_ID,
     'client_secret': secretResponse.SecretString,
     'grant_type': 'authorization_code',
@@ -39,7 +39,15 @@ export const main = async (event: APIGatewayProxyEvent) => {
     'redirect_uri': REDIRECT_URL
   })
 
-  console.log(res.data)
+  console.log(tokenResponse.data)
+
+  const guildsResponse = await discord.get(`/users/@me/guild`, {
+    headers: {
+      Authorization: `Bearer ${tokenResponse.data.access_token}`
+    }
+  })
+
+  console.log(guildsResponse.data)
 
   const body = `<!DOCTYPE html>
         <html lang="en">
@@ -48,7 +56,8 @@ export const main = async (event: APIGatewayProxyEvent) => {
             <title>Trade Game - Authentication</title>
         </head>
         <body>
-            <div>Success! ${JSON.stringify(res.data)}</div>
+            <div>Success! ${JSON.stringify(tokenResponse.data)}</div>
+            <div>${JSON.stringify(guildsResponse.data, null, 2)}</div>
         </body>
         </html>`;
 
