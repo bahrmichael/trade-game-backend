@@ -3,7 +3,7 @@ import { handlerPath } from '@libs/handler-resolver';
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
   environmentVariables: {
-    CLIENT_ID: "${env:DISCORD_CLIENT_ID}",
+    CLIENT_ID: "1043200977156714607",
     REDIRECT_URL: "${self:custom.domain}/${self:provider.stage}/",
     TABLE: { Ref: 'AuthStateTable' }
   },
