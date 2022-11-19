@@ -6,7 +6,7 @@ import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-sec
 const ssm = new SecretsManagerClient({});
 
 const discord = axios.create({
-  baseURL: 'https://discord.com',
+  baseURL: 'https://discord.com/api',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
@@ -48,7 +48,7 @@ export const main = async (event: APIGatewayProxyEvent) => {
             <title>Trade Game - Authentication</title>
         </head>
         <body>
-            <div>Success! ${res.data?.scope}</div>
+            <div>Success! ${JSON.stringify(res.data)}</div>
         </body>
         </html>`;
 
