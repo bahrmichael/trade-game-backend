@@ -27,7 +27,7 @@ export const main = async () => {
         </head>
         <body>
             <div>
-                <a href="${discordAuthLink}"></a>
+                <a href="${discordAuthLink}">Sign In</a>
             </div>
         </body>
         </html>`;
