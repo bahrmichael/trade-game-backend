@@ -17,7 +17,7 @@ export const main = async () => {
     }
   }));
 
-  const discordAuthLink = `https://discord.com/oauth2/authorize?response_type=code&client_id=${CLIENT_ID}&scope=identify&state=${state}&redirect_uri=${REDIRECT_URL}&prompt=consent`
+  const discordAuthLink = `https://discord.com/oauth2/authorize?response_type=code&client_id=${CLIENT_ID}&scope=identify&state=${state}&redirect_uri=${encodeURIComponent(REDIRECT_URL)}&prompt=consent`;
 
   const body = `<!DOCTYPE html>
         <html lang="en">
