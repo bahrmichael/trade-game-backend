@@ -1,5 +1,4 @@
 import {CloudFormationCustomResourceEvent} from "aws-lambda";
-import {formatJSONResponse} from "@libs/api-gateway";
 import axios from "axios";
 import {GetSecretValueCommand, SecretsManagerClient} from "@aws-sdk/client-secrets-manager";
 
@@ -33,27 +32,60 @@ async function deleteChannel() {
 
 async function getClient() {
   return axios.create({
-    baseURL: 'https://discord.com/api',
+    baseURL: 'https://discord.com/api/v10',
     headers: {
       Authorization: `Bearer ${await getSecret()}`
     }
   })
 }
 
-export const main = async (event: CloudFormationCustomResourceEvent) => {
+export const main = async (event: CloudFormationCustomResourceEvent, context: any) => {
 
   const requestType = event.RequestType;
-  switch (requestType) {
-    case "Create":
-      await createChannel();
-      break;
-    case "Update":
-      break;
-    case "Delete":
-      await deleteChannel();
+
+  try {
+    switch (requestType) {
+      case "Create":
+        await createChannel();
+        break;
+      case "Update":
+        break;
+      case "Delete":
+        await deleteChannel();
+    }
+    await sendResponse(event, context, "SUCCESS", {});
+  } catch (e) {
+    await sendResponse(event, context, "FAILED", {});
   }
-
-  return formatJSONResponse({
-
-  })
 };
+
+// https://aws.plainenglish.io/simple-example-of-lambda-backed-custom-resource-in-aws-cloudformation-6cf2f9f1a101
+// https://www.alexdebrie.com/posts/cloudformation-custom-resources/
+async function sendResponse(event, context, responseStatus: 'FAILED' | 'SUCCESS', responseData) {
+  const responseBody = JSON.stringify({
+    Status: responseStatus,
+    Reason:
+        "See the details in CloudWatch Log Stream: " + context.logStreamName,
+    PhysicalResourceId: context.logStreamName,
+    StackId: event.StackId,
+    RequestId: event.RequestId,
+    LogicalResourceId: event.LogicalResourceId,
+    Data: responseData,
+  });
+
+  console.log("RESPONSE BODY:\n", responseBody);
+
+  console.log("SENDING RESPONSE...\n");
+
+  await axios.put(event.ResponseURL, {
+    Status: responseStatus,
+    Reason:
+        "See the details in CloudWatch Log Stream: " + context.logStreamName,
+    PhysicalResourceId: context.logStreamName,
+    StackId: event.StackId,
+    RequestId: event.RequestId,
+    LogicalResourceId: event.LogicalResourceId,
+    Data: responseData,
+  })
+}
+
