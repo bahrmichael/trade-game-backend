@@ -39,7 +39,7 @@ async function deleteChannel() {
 }
 
 async function getChannel(discord: any) {
-  const channels: { id: string, name: string }[] = await discord.get(`/guilds/${GUILD_ID}/channels`)
+  const channels: { id: string, name: string }[] = (await discord.get(`/guilds/${GUILD_ID}/channels`)).data
   return channels.find((channel) => channel.name === VERSION)
 }
 
