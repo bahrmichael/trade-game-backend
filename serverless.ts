@@ -138,7 +138,20 @@ const serverlessConfiguration: AWS = {
             'application/json': "{\"message\": \"$context.error.message\", \"error\": \"$context.error.validationErrorString\"}"
           }
         }
-      }
+      },
+      DiscordChannelResource: {
+        Type : "AWS::CloudFormation::CustomResource",
+        Properties : {
+          ServiceToken : { 'Fn::GetAtt': ['discordManageChannel', 'Arn' ] },
+        },
+      },
+      // DiscordCommandsResource: {
+      //   Type : "AWS::CloudFormation::CustomResource",
+      //   Properties : {
+      //     ServiceToken : { 'Fn::GetAtt': ['DiscordCommandsFunction', 'Arn' ] },
+      //   },
+      //   DependsOn: ['DiscordCommandsResource']
+      // }
     }
   }
 };
