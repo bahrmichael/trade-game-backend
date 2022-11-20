@@ -142,7 +142,7 @@ const serverlessConfiguration: AWS = {
       DiscordChannelResource: {
         Type : "AWS::CloudFormation::CustomResource",
         Properties : {
-          ServiceToken : { 'Fn::GetAtt': ['discordManageChannel', 'Arn' ] },
+          ServiceToken : { 'Fn::GetAtt': ['DiscordManageChannelLambdaFunction', 'Arn' ] },
         },
       },
       // DiscordCommandsResource: {
