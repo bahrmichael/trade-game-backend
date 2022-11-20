@@ -65,10 +65,10 @@ export const main = async (event: CloudFormationCustomResourceEvent, context: an
 // https://www.alexdebrie.com/posts/cloudformation-custom-resources/
 async function sendResponse(event, context, responseStatus: 'FAILED' | 'SUCCESS', responseData, e?) {
   console.log("SENDING RESPONSE...\n");
+  const reason = "See the details in CloudWatch Log Stream: " + context.logStreamName
   await axios.put(event.ResponseURL, {
     Status: responseStatus,
-    Reason:
-        e.message + " See the details in CloudWatch Log Stream: " + context.logStreamName,
+    Reason: (e ? e.message + " " : '') + reason,
     PhysicalResourceId: context.logStreamName,
     StackId: event.StackId,
     RequestId: event.RequestId,
