@@ -35,7 +35,7 @@ async function getClient() {
   return axios.create({
     baseURL: 'https://discord.com/api/v10',
     headers: {
-      Authorization: `Bearer ${await getSecret()}`
+      Authorization: `Bot ${await getSecret()}`
     }
   })
 }
