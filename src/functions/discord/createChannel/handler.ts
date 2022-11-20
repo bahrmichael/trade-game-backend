@@ -56,13 +56,13 @@ export const main = async (event: CloudFormationCustomResourceEvent, context: an
     await sendResponse(event, context, "SUCCESS", {});
   } catch (e) {
     console.error(e)
-    await sendResponse(event, context, "FAILED", {});
+    await sendResponse(event, context, "FAILED", {}, e);
   }
 };
 
 // https://aws.plainenglish.io/simple-example-of-lambda-backed-custom-resource-in-aws-cloudformation-6cf2f9f1a101
 // https://www.alexdebrie.com/posts/cloudformation-custom-resources/
-async function sendResponse(event, context, responseStatus: 'FAILED' | 'SUCCESS', responseData) {
+async function sendResponse(event, context, responseStatus: 'FAILED' | 'SUCCESS', responseData, e?) {
   const responseBody = JSON.stringify({
     Status: responseStatus,
     Reason:
@@ -81,7 +81,7 @@ async function sendResponse(event, context, responseStatus: 'FAILED' | 'SUCCESS'
   await axios.put(event.ResponseURL, {
     Status: responseStatus,
     Reason:
-        "See the details in CloudWatch Log Stream: " + context.logStreamName,
+        e.message + " See the details in CloudWatch Log Stream: " + context.logStreamName,
     PhysicalResourceId: context.logStreamName,
     StackId: event.StackId,
     RequestId: event.RequestId,
