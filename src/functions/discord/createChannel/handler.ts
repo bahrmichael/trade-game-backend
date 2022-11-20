@@ -12,23 +12,35 @@ async function getSecret() {
   return secretResponse.SecretString
 }
 
-async function createChannel() {
+async function createChannel(): Promise<string> {
   const discord = await getClient()
-  await discord.post(`/guilds/${GUILD_ID}/channels`, {
-    name: VERSION,
-    // https://discord.com/developers/docs/resources/channel#channel-object-channel-types
-    type: 0,
-    topic: `Dev channel for pull request ${VERSION}`
-  })
+  const channel = await getChannel(discord)
+  if (!channel) {
+    const channelRes = await discord.post(`/guilds/${GUILD_ID}/channels`, {
+      name: VERSION,
+      // https://discord.com/developers/docs/resources/channel#channel-object-channel-types
+      type: 0,
+      topic: `Dev channel for pull request ${VERSION}`
+    })
+
+    const {id} = channelRes.data;
+    return id;
+  } else {
+    return channel.id;
+  }
 }
 
 async function deleteChannel() {
   const discord = await getClient()
-  const channels: { id: string, name: string }[] = await discord.get(`/guilds/${GUILD_ID}/channels`)
-  const channel = channels.find((channel) => channel.name === VERSION);
+  const channel = await getChannel(discord)
   if (channel) {
     await discord.delete(`/channels/${channel.id}`);
   }
+}
+
+async function getChannel(discord: any) {
+  const channels: { id: string, name: string }[] = await discord.get(`/guilds/${GUILD_ID}/channels`)
+  return channels.find((channel) => channel.name === VERSION)
 }
 
 async function getClient() {
@@ -45,19 +57,24 @@ export const main = async (event: CloudFormationCustomResourceEvent, context: an
   const requestType = event.RequestType;
 
   try {
+    let channelId;
     switch (requestType) {
       case "Create":
-        await createChannel();
+        channelId = await createChannel();
         break;
       case "Update":
         break;
       case "Delete":
         await deleteChannel();
     }
-    await sendResponse(event, context, "SUCCESS", {});
+    const responseData = {}
+    if (channelId) {
+      responseData[channelId] = channelId;
+    }
+    await sendResponse(event, context, "SUCCESS", responseData);
   } catch (e) {
     console.error(e)
-    await sendResponse(event, context, "FAILED", { error: e }, e);
+    await sendResponse(event, context, "FAILED", {}, e);
   }
 };
 
