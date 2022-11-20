@@ -55,6 +55,7 @@ export const main = async (event: CloudFormationCustomResourceEvent, context: an
     }
     await sendResponse(event, context, "SUCCESS", {});
   } catch (e) {
+    console.error(e)
     await sendResponse(event, context, "FAILED", {});
   }
 };
