@@ -4,7 +4,7 @@ import {GetSecretValueCommand, SecretsManagerClient} from "@aws-sdk/client-secre
 
 const ssm = new SecretsManagerClient({});
 
-const {VERSION, GUILD_ID} = process.env;
+const {VERSION, GUILD_ID, PARENT_ID} = process.env;
 
 async function getSecret() {
   const secretResponse = await ssm.send(new GetSecretValueCommand({SecretId: 'discord_bot_secret'}))
@@ -20,7 +20,8 @@ async function createChannel(): Promise<string> {
       name: VERSION,
       // https://discord.com/developers/docs/resources/channel#channel-object-channel-types
       type: 0,
-      topic: `Dev channel for pull request ${VERSION}`
+      topic: `Dev channel for pull request ${VERSION}`,
+      parentId: PARENT_ID
     })
 
     const {id} = channelRes.data;

@@ -4,7 +4,8 @@ export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
   environment: {
     VERSION: '${self:provider.stage}',
-    GUILD_ID: '1043586935232417923'
+    GUILD_ID: '1043586935232417923',
+    PARENT_ID: '1043997956363272254'
   },
   iamRoleStatements: [
     {
