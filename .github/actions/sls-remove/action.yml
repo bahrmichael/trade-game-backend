@@ -32,4 +32,4 @@ runs:
       shell: bash
       run: |
         npm install
-        npm run remove -- --stage ${{ inputs.stage }}
+        npm run remove -- --stage ${{ inputs.stage }} --region ${{ inputs.aws-region }}
