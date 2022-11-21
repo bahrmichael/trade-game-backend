@@ -12,15 +12,6 @@ export default {
       http: {
         method: 'get',
         path: 'api-key/start',
-        documentation: {
-          summary: 'Visit the page to start a Discord authentication.',
-          methodResponses: [{
-            statusCode: 200,
-            responseModels: {
-              'text/html': 'CreateApiKeyStartUi'
-            },
-          }]
-        }
       },
     },
   ],

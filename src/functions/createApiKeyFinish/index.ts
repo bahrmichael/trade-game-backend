@@ -14,15 +14,6 @@ export default {
       http: {
         method: 'get',
         path: 'api-key/finish',
-        documentation: {
-          summary: 'Visit the page to finish a Discord authentication.',
-          methodResponses: [{
-            statusCode: 200,
-            responseModels: {
-              'text/html': 'CreateApiKeyFinishUi'
-            },
-          }]
-        }
       },
     },
   ],
