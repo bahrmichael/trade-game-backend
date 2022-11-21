@@ -1,7 +1,7 @@
 import {APIGatewayAuthorizerEvent} from "aws-lambda/trigger/api-gateway-authorizer";
 import jwt from "jsonwebtoken";
 
-const {JWT_SECRET} = process.env;
+const {JWT_SECRET, VERSION} = process.env;
 
 export const main = async (event: APIGatewayAuthorizerEvent) => {
 
@@ -36,15 +36,18 @@ export const main = async (event: APIGatewayAuthorizerEvent) => {
     const token = authorizationToken.split(' ')[1];
 
     try {
-        const {sub, internalApiKey} = jwt.verify(token, JWT_SECRET);
+        const {sub, internalApiKey} = jwt.verify(token, JWT_SECRET, {audience: 'player', issuer: VERSION});
         return generatePolicy('user', 'Allow', methodArn, internalApiKey, {discordId: sub});
     } catch(err) {
+        console.log(err)
         return generatePolicy('user', 'Deny', methodArn, undefined, { error: { messageString: 'The Authorization token is invalid.' }});
     }
 };
 
 function generatePolicy(principalId, effect, resource, internalApiKey?: string, context?: any) {
     const authResponse: any = {};
+
+    console.log(effect === 'Deny' ? 'Access denied' : 'Access granted')
 
     authResponse.principalId = principalId;
     if (effect && resource) {
