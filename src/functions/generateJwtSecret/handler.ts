@@ -2,7 +2,7 @@ import {CloudFormationCustomResourceEvent} from "aws-lambda";
 import axios from 'axios';
 import {generateApiKey} from "generate-api-key";
 
-function generateSecret() {
+function generateSecret(): string | string[] {
     return generateApiKey({method: 'uuidv5'})
 }
 
@@ -34,11 +34,11 @@ export const main = async (event: CloudFormationCustomResourceEvent, context: an
 // https://aws.plainenglish.io/simple-example-of-lambda-backed-custom-resource-in-aws-cloudformation-6cf2f9f1a101
 // https://www.alexdebrie.com/posts/cloudformation-custom-resources/
 async function sendResponse(event, context, responseStatus: 'FAILED' | 'SUCCESS', responseData, e?) {
-    console.log("SENDING RESPONSE...\n");
+    console.log("SENDING RESPONSE...\n", responseData);
     const reason = "See the details in CloudWatch Log Stream: " + context.logStreamName
     await axios.put(event.ResponseURL, {
         Status: responseStatus,
-        Reason: (e ? e.message + " " : '') + reason,
+        Reason: (e ? e.message + " " + JSON.stringify(responseData) + " " : '') + reason,
         PhysicalResourceId: context.logStreamName,
         StackId: event.StackId,
         RequestId: event.RequestId,
