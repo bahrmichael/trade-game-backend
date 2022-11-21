@@ -5,7 +5,7 @@ export default {
   environment: {
     CLIENT_ID: '${self:custom.discordClientId}',
     AUTH_STATE_TABLE: { Ref: 'AuthStateTable' },
-    // JWT_SECRET: {'Fn::ImportValue': 'JwtSecret'},
+    JWT_SECRET: {'Fn::GetAtt': ['JwtSecretResource', 'JwtSecret' ]},
     REDIRECT_URL: "${self:custom.domain}/${self:provider.stage}/api-key/finish",
     VERSION: '${self:provider.stage}'
   },
