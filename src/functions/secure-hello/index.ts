@@ -19,7 +19,7 @@ export default {
             'application/json': 'PostHelloRequest',
           },
           security: [
-            'X-API-KEY'
+            'BearerAuthentication'
           ],
           methodResponses: [{
             statusCode: 200,

@@ -51,9 +51,10 @@ const serverlessConfiguration: AWS = {
         url: "${self:custom.domain}/${self:provider.stage}/",
       }],
       security: [{
-        name: 'X-API-KEY',
-        type: 'apiKey',
-        in: 'header',
+        name: 'BearerAuthentication',
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT'
       }],
       models: [{
         name: 'UnauthenticatedResponse',
