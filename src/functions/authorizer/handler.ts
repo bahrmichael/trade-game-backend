@@ -1,4 +1,3 @@
-import 'source-map-support/register';
 import {APIGatewayAuthorizerEvent} from "aws-lambda/trigger/api-gateway-authorizer";
 import {verify} from "jsonwebtoken";
 import {ddb} from "@libs/ddb-client";
