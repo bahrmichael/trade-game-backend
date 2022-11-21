@@ -36,6 +36,11 @@ export default {
     },
     {
       Effect: 'Allow',
+      Action: ['apigateway:GET'],
+      Resource: ['arn:aws:apigateway:${self:custom.region}::/usageplans']
+    },
+    {
+      Effect: 'Allow',
       Action: ['apigateway:PATCH'],
       Resource: ['arn:aws:apigateway:${self:custom.region}::/usageplans/*']
     },
