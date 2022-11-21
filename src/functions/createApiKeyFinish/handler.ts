@@ -119,7 +119,7 @@ export const main = async (event: APIGatewayProxyEvent) => {
     const usagePlanId = await createUsagePlan(id);
     const apiKey = await createApiKey(id, usagePlanId);
 
-    const token = jwt.sign({sub: id, aud: 'player', issuer: VERSION, internalApiKey: apiKey}, JWT_SECRET, {});
+    const token = jwt.sign({sub: id, aud: 'player', iss: VERSION, internalApiKey: apiKey}, JWT_SECRET, {});
 
     const body = `<!DOCTYPE html>
         <html lang="en">
