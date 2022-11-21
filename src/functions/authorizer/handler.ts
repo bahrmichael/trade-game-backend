@@ -5,8 +5,6 @@ const {JWT_SECRET, VERSION} = process.env;
 
 export const main = async (event: APIGatewayAuthorizerEvent) => {
 
-    console.log({authType: event.type});
-
     let authorizationToken;
     if (event.type === 'REQUEST') {
         /*
@@ -37,7 +35,6 @@ export const main = async (event: APIGatewayAuthorizerEvent) => {
 
     try {
         const {sub, internalApiKey} = jwt.verify(token, JWT_SECRET, {audience: 'player', issuer: VERSION});
-        console.log({sub, internalApiKey})
         return generatePolicy('user', 'Allow', methodArn, internalApiKey, {discordId: sub});
     } catch(err) {
         console.log(err)
