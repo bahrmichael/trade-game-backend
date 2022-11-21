@@ -35,6 +35,7 @@ export const main = async (event: APIGatewayAuthorizerEvent) => {
 
     try {
         const {sub, internalApiKey} = jwt.verify(token, JWT_SECRET, {audience: 'player', issuer: VERSION});
+        console.log({sub, internalApiKey})
         return generatePolicy('user', 'Allow', methodArn, internalApiKey, {discordId: sub});
     } catch(err) {
         console.log(err)
