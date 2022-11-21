@@ -6,7 +6,7 @@ export default {
     CLIENT_ID: '${self:custom.discordClientId}',
     AUTH_STATE_TABLE: { Ref: 'AuthStateTable' },
     JWT_SECRET: {'Fn::GetAtt': ['JwtSecretResource', 'JwtSecret' ]},
-    REDIRECT_URL: "${self:custom.domain}/${self:custom.stage}/api-key/finish",
+    REDIRECT_URL: "${self:custom.domain}/${self:provider.stage}/api-key/finish",
     VERSION: '${self:provider.stage}',
     API_ID: {Ref: 'ApiGatewayRestApi'},
   },
