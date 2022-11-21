@@ -14,7 +14,7 @@ export const main = async (event: CloudFormationCustomResourceEvent, context: an
         let jwtSecret;
         switch (requestType) {
             case "Create":
-                jwtSecret = await generateSecret();
+                jwtSecret = generateSecret();
                 break;
             case "Update":
             case "Delete":
@@ -22,7 +22,7 @@ export const main = async (event: CloudFormationCustomResourceEvent, context: an
         }
         const responseData = {}
         if (jwtSecret) {
-            responseData['JwtSecret'] = jwtSecret;
+            responseData['JwtSecret'] = {name: 'JwtSecret', value: jwtSecret};
         }
         await sendResponse(event, context, "SUCCESS", responseData);
     } catch (e) {
