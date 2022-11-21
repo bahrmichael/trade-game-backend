@@ -3,14 +3,9 @@ import {handlerPath} from '@libs/handler-resolver';
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
   environment: {
-    JWT_SECRET_TABLE: { Ref: 'JwtSecretTable' },
+    JWT_SECRET: {'Fn::ImportValue': 'JwtSecret'},
   },
   iamRoleStatements: [
-    {
-      Effect: 'Allow',
-      Action: ['dynamodb:GetItem'],
-      Resource: { 'Fn::GetAtt': ['JwtSecretTable', 'Arn' ] },
-    },
     {
       Effect: 'Allow',
       Action: ['secretsmanager:GetSecretValue'],

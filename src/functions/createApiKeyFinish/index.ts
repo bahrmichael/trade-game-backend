@@ -5,7 +5,7 @@ export default {
   environment: {
     CLIENT_ID: '${self:custom.discordClientId}',
     AUTH_STATE_TABLE: { Ref: 'AuthStateTable' },
-    JWT_SECRET_TABLE: { Ref: 'JwtSecretTable' },
+    JWT_SECRET: {'Fn::ImportValue': 'JwtSecret'},
     REDIRECT_URL: "${self:custom.domain}/${self:provider.stage}/api-key/finish",
     VERSION: '${self:provider.stage}'
   },
@@ -27,11 +27,6 @@ export default {
     },
   ],
   iamRoleStatements: [
-    {
-      Effect: 'Allow',
-      Action: ['dynamodb:GetItem'],
-      Resource: { 'Fn::GetAtt': ['JwtSecretTable', 'Arn' ] },
-    },
     {
       Effect: 'Allow',
       Action: ['dynamodb:GetItem'],

@@ -154,6 +154,12 @@ const serverlessConfiguration: AWS = {
           }
         }
       },
+      JwtSecretResource: {
+        Type : "AWS::CloudFormation::CustomResource",
+        Properties : {
+          ServiceToken : { 'Fn::GetAtt': ['GenerateJwtSecretLambdaFunction', 'Arn' ] },
+        },
+      },
     }
   }
 };
