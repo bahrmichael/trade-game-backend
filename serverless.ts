@@ -102,21 +102,6 @@ const serverlessConfiguration: AWS = {
   },
   resources: {
     Resources: {
-      // todo: replace this with a custom resource for SSM secrets
-      JwtSecretTable: {
-        Type: 'AWS::DynamoDB::Table',
-        Properties: {
-          BillingMode: 'PAY_PER_REQUEST',
-          KeySchema: [{
-            AttributeName: 'id',
-            KeyType: 'HASH'
-          }],
-          AttributeDefinitions: [{
-            AttributeName: 'id',
-            AttributeType: 'S'
-          }],
-        }
-      },
       AuthStateTable: {
         Type: 'AWS::DynamoDB::Table',
         Properties: {
