@@ -3,7 +3,7 @@ import axios from 'axios';
 import {generateApiKey} from "generate-api-key";
 
 function generateSecret(): string | string[] {
-    return generateApiKey({method: 'uuidv5'})
+    return generateApiKey({method: 'uuidv4'})
 }
 
 export const main = async (event: CloudFormationCustomResourceEvent, context: any) => {
