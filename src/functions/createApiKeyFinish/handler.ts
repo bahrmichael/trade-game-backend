@@ -14,7 +14,7 @@ const discord = axios.create({
     }
 })
 
-const {AUTH_STATE_TABLE, CLIENT_ID, REDIRECT_URL, VERSION, JWT_SECRET_TABLE} = process.env;
+const {AUTH_STATE_TABLE, CLIENT_ID, REDIRECT_URL, VERSION, JWT_SECRET} = process.env;
 
 export const main = async (event: APIGatewayProxyEvent) => {
 
@@ -50,12 +50,7 @@ export const main = async (event: APIGatewayProxyEvent) => {
     console.log(userInfoResponse.data)
     const {id} = userInfoResponse.data.user;
 
-    const jwtSecret = (await ddb.send(new GetCommand({
-        TableName: JWT_SECRET_TABLE,
-        Key: {id: 'jwt_secret'}
-    }))).Item?.value;
-
-    const apiKey = jwt.sign({ iss: VERSION, sub: id, aud: 'player' }, jwtSecret);
+    const apiKey = jwt.sign({ iss: VERSION, sub: id, aud: 'player' }, JWT_SECRET);
 
     const body = `<!DOCTYPE html>
         <html lang="en">
