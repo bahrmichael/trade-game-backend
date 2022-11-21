@@ -1,4 +1,3 @@
-import 'source-map-support/register';
 import {CloudFormationCustomResourceEvent} from "aws-lambda";
 import axios from 'axios';
 import {generateApiKey} from "generate-api-key";
