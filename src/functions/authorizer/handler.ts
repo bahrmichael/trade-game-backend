@@ -1,9 +1,7 @@
 import {APIGatewayAuthorizerEvent} from "aws-lambda/trigger/api-gateway-authorizer";
 import {verify} from "jsonwebtoken";
-import {ddb} from "@libs/ddb-client";
-import {GetCommand} from "@aws-sdk/lib-dynamodb";
 
-const {JWT_SECRET_TABLE} = process.env;
+const {JWT_SECRET} = process.env;
 
 export const main = async (event: APIGatewayAuthorizerEvent) => {
 
@@ -37,13 +35,8 @@ export const main = async (event: APIGatewayAuthorizerEvent) => {
 
     const token = authorizationToken.split(' ')[1];
 
-    const jwtSecret = (await ddb.send(new GetCommand({
-        TableName: JWT_SECRET_TABLE,
-        Key: {id: 'jwt_secret'}
-    }))).Item?.value;
-
     try {
-        const {owner} = verify(token, jwtSecret);
+        const {owner} = verify(token, JWT_SECRET);
         return generatePolicy('user', 'Allow', methodArn, token, {owner});
     } catch(err) {
         return generatePolicy('user', 'Deny', methodArn, token, { error: { messageString: 'The Authorization token is invalid.' }});
