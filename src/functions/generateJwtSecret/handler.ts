@@ -22,7 +22,7 @@ export const main = async (event: CloudFormationCustomResourceEvent, context: an
         }
         const responseData = {}
         if (jwtSecret) {
-            responseData['JwtSecret'] = {name: 'JwtSecret', value: jwtSecret};
+            responseData['JwtSecret'] = jwtSecret;
         }
         await sendResponse(event, context, "SUCCESS", responseData);
     } catch (e) {
