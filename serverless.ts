@@ -27,6 +27,9 @@ const serverlessConfiguration: AWS = {
     },
     iam: {
       deploymentRole: 'arn:aws:iam::${aws:accountId}:role/${self:service}-CloudFormationExecutionRole'
+    },
+    logs: {
+      restApi: true,
     }
   },
   functions,
@@ -104,6 +107,14 @@ const serverlessConfiguration: AWS = {
     }
   },
   resources: {
+    extensions: {
+      // https://forum.serverless.com/t/authorizers-cache/1127/6
+      AuthorizerApiGatewayAuthorizer: {
+        Properties: {
+          AuthorizerResultTtlInSeconds: 0
+        }
+      },
+    },
     Resources: {
       AuthStateTable: {
         Type: 'AWS::DynamoDB::Table',
