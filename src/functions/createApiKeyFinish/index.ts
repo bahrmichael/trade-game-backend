@@ -27,22 +27,22 @@ export default {
     {
       Effect: 'Allow',
       Action: ['secretsmanager:GetSecretValue'],
-      Resource: ['arn:aws:secretsmanager:${self:custom.region}:${aws:accountId}:secret:discord_client_secret-0NJgyw'],
+      Resource: ['arn:aws:secretsmanager:${aws:region}:${aws:accountId}:secret:discord_client_secret-0NJgyw'],
     },
     {
       Effect: 'Allow',
       Action: ['apigateway:POST'],
-      Resource: ['arn:aws:apigateway:${self:custom.region}::/usageplans', 'arn:aws:apigateway:${self:custom.region}::/apikeys', 'arn:aws:apigateway:${self:custom.region}::/usageplans/*/keys']
+      Resource: ['arn:aws:apigateway:${aws:region}::/usageplans', 'arn:aws:apigateway:${aws:region}::/apikeys', 'arn:aws:apigateway:${aws:region}::/usageplans/*/keys']
     },
     {
       Effect: 'Allow',
       Action: ['apigateway:GET'],
-      Resource: ['arn:aws:apigateway:${self:custom.region}::/usageplans']
+      Resource: ['arn:aws:apigateway:${aws:region}::/usageplans']
     },
     {
       Effect: 'Allow',
       Action: ['apigateway:PATCH'],
-      Resource: ['arn:aws:apigateway:${self:custom.region}::/usageplans/*']
+      Resource: ['arn:aws:apigateway:${aws:region}::/usageplans/*']
     },
   ],
   tags: {
