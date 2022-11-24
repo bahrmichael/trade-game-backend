@@ -32,7 +32,8 @@ const serverlessConfiguration: AWS = {
   package: { individually: true },
   custom: {
     // later replace with a shared URL like https://api.tradegame.dev
-    domain: 'https://st1mnt1acj.execute-api.us-east-1.amazonaws.com',
+    domain: 'https://qx3ep8iubc.execute-api.us-east-1.amazonaws.com',
+    discordClientId: '1043200977156714607',
     esbuild: {
       bundle: true,
       minify: false,
@@ -101,6 +102,24 @@ const serverlessConfiguration: AWS = {
   },
   resources: {
     Resources: {
+      AuthStateTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          BillingMode: 'PAY_PER_REQUEST',
+          KeySchema: [{
+            AttributeName: 'state',
+            KeyType: 'HASH'
+          }],
+          AttributeDefinitions: [{
+            AttributeName: 'state',
+            AttributeType: 'S'
+          }],
+          TimeToLiveSpecification: {
+            AttributeName: 'timeToLive',
+            Enabled: true,
+          },
+        }
+      },
       ApiGatewayRestApi: {
         Type: 'AWS::ApiGateway::RestApi',
         Properties: {
@@ -119,7 +138,20 @@ const serverlessConfiguration: AWS = {
             'application/json': "{\"message\": \"$context.error.message\", \"error\": \"$context.error.validationErrorString\"}"
           }
         }
-      }
+      },
+      DiscordChannelResource: {
+        Type : "AWS::CloudFormation::CustomResource",
+        Properties : {
+          ServiceToken : { 'Fn::GetAtt': ['DiscordManageChannelLambdaFunction', 'Arn' ] },
+        },
+      },
+      // DiscordCommandsResource: {
+      //   Type : "AWS::CloudFormation::CustomResource",
+      //   Properties : {
+      //     ServiceToken : { 'Fn::GetAtt': ['DiscordCommandsFunction', 'Arn' ] },
+      //   },
+      //   DependsOn: ['DiscordCommandsResource']
+      // }
     }
   }
 };
