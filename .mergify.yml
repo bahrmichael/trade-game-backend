@@ -19,6 +19,7 @@ pull_request_rules:
   - name: Auto-merge upgrades
     conditions:
       - check-success=deploy
+      - check-success='renovate/stability-days'
     actions:
       merge:
         method: squash
