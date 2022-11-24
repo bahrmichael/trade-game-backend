@@ -35,6 +35,7 @@ const serverlessConfiguration: AWS = {
     // later replace with a shared URL like https://api.tradegame.dev
     domain: 'https://st1mnt1acj.execute-api.us-east-1.amazonaws.com',
     discordClientId: '1043200977156714607',
+    discordRedirectUrl: '${self:custom.domain}/${self:provider.stage}/api-key/finish',
     esbuild: {
       bundle: true,
       minify: false,
