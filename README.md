@@ -2,25 +2,27 @@
 
 More to come...
 
+## Instances
+
+The latest available instance is `https://st1mnt1acj.execute-api.us-east-1.amazonaws.com`. Start by looking at its [OpenAPI](https://st1mnt1acj.execute-api.us-east-1.amazonaws.com/openapi).
+
 ## OpenAPI
 
-Debug openapi changes by running the command below, and paste it into editor.swagger.io.
+You can find the live version at `https://<instance>/openapi`.
+
+We introduced OpenAPI documentation with https://github.com/bahrmichael/trade-game-backend/pull/18.
+
+### Developing Trade Game
+
+You can debug OpenAPI changes by running the command below, and paste it into editor.swagger.io.
 
 ```
 serverless openapi generate -o openapi.yaml -f yaml && pbcopy < openapi.yaml
 ```
 
-### Basic OpenAPI
+## Basic OpenAPI
 
 https://github.com/bahrmichael/trade-game-backend/pull/18
-
-### Secured with API Key
-
-https://github.com/bahrmichael/trade-game-backend/pull/22
-
-### Secured with Authorizer and JWT
-
-TODO: show custom authorizer in a follow up blog post on securing api routes
 
 ## Authentication
 
