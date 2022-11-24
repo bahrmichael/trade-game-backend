@@ -4,7 +4,7 @@ More to come...
 
 ## Instances
 
-The latest available instance is `https://st1mnt1acj.execute-api.us-east-1.amazonaws.com`. Start by looking at its [OpenAPI](https://st1mnt1acj.execute-api.us-east-1.amazonaws.com/openapi).
+The latest available instance is `https://st1mnt1acj.execute-api.us-east-1.amazonaws.com/20221023`. Start by looking at its [OpenAPI](https://st1mnt1acj.execute-api.us-east-1.amazonaws.com/20221023/openapi).
 
 ## OpenAPI
 
