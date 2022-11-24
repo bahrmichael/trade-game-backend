@@ -5,19 +5,18 @@ const {JWT_SECRET, VERSION} = process.env;
 
 export const main = async (event: APIGatewayAuthorizerEvent) => {
 
-    let authorizationToken;
-    if (event.type === 'REQUEST') {
-        /*
-        Lowercase the headers so that the customer doesn't have to respect casing on
-        the authorization header. E.g. insomnia sent a lowercase authorization header.
-         */
-        for (const key of Object.keys(event.headers)) {
-            event.headers[key.toLowerCase()] = event.headers[key];
-        }
-        authorizationToken = event.headers.authorization;
-    } else {
+    if (event.type !== 'REQUEST') {
         throw Error(`Unhandled authorizer event type: ${event.type}`);
     }
+
+    /*
+    Lowercase the headers so that the customer doesn't have to respect casing on
+    the authorization header. E.g. insomnia sent a lowercase authorization header.
+     */
+    for (const key of Object.keys(event.headers)) {
+        event.headers[key.toLowerCase()] = event.headers[key];
+    }
+    const authorizationToken = event.headers.authorization;
 
     const {methodArn} = event;
 
@@ -35,7 +34,6 @@ export const main = async (event: APIGatewayAuthorizerEvent) => {
 
     try {
         const {sub, internalApiKey} = jwt.verify(token, JWT_SECRET, {audience: 'player', issuer: VERSION});
-        console.log({sub, internalApiKey})
         return generatePolicy('user', 'Allow', methodArn, internalApiKey, {discordId: sub});
     } catch(err) {
         console.log(err)
@@ -46,7 +44,7 @@ export const main = async (event: APIGatewayAuthorizerEvent) => {
 function generatePolicy(principalId, effect, resource, internalApiKey?: string, context?: any) {
     const authResponse: any = {};
 
-    console.log(effect === 'Deny' ? 'Access denied' : 'Access granted')
+    console.log(effect === 'Deny' ? 'Access denied' : 'Access granted', resource)
 
     authResponse.principalId = principalId;
     if (effect && resource) {
