@@ -111,7 +111,6 @@ export const main = async (event: APIGatewayProxyEvent) => {
 
     const userInfoResponse = await getDiscordUserInfo(code);
 
-    console.log(userInfoResponse.data)
     const {id} = userInfoResponse.data.user;
 
     const usagePlanId = await createUsagePlan(`${VERSION}-${id}`);
