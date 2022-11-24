@@ -6,6 +6,9 @@ import {
     CreateApiKeyCommand,
     CreateUsagePlanCommand,
     CreateUsagePlanKeyCommand,
+    DeleteApiKeyCommand,
+    DeleteUsagePlanKeyCommand,
+    GetApiKeysCommand,
     GetUsagePlansCommand,
     UpdateUsagePlanCommand
 } from "@aws-sdk/client-api-gateway";
@@ -57,6 +60,20 @@ async function createUsagePlan(id: string): Promise<string> {
 }
 
 async function createApiKey(id: string, usagePlanId: string): Promise<string> {
+    const existingApiKeys = await apigw.send(new GetApiKeysCommand({
+        nameQuery: id,
+    }))
+
+    for (const existingApiKey of existingApiKeys.items) {
+        await apigw.send(new DeleteUsagePlanKeyCommand({
+            usagePlanId,
+            keyId: existingApiKey.id,
+        }))
+        await apigw.send(new DeleteApiKeyCommand({
+            apiKey: existingApiKey.id,
+        }))
+    }
+
     const apiKey = await apigw.send(new CreateApiKeyCommand({
         enabled: true,
         name: id,
