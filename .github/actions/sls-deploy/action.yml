@@ -34,8 +34,8 @@ runs:
 
     - name: Generate OpenAPI
       shell: bash
-      run: npm run generate:openapi -- --stage ${{ inputs.stage }}
+      run: npm run generate:openapi -- --stage ${{ inputs.stage }} --region ${{ inputs.aws-region }}
 
     - name: Deploy backend
       shell: bash
-      run: npm run deploy -- --conceal --stage ${{ inputs.stage }}
+      run: npm run deploy -- --conceal --stage ${{ inputs.stage }} --region ${{ inputs.aws-region }}

@@ -8,6 +8,12 @@ export default {
       http: {
         method: 'post',
         path: 'secure-hello',
+        authorizer: {
+          name: 'authorizer',
+          identitySource: 'method.request.header.Authorization',
+          type: 'request'
+        },
+        private: true,
         request: {
           schemas: {
             'application/json': schema,
@@ -19,7 +25,7 @@ export default {
             'application/json': 'PostHelloRequest',
           },
           security: [
-            'X-API-KEY'
+            'BearerAuthentication'
           ],
           methodResponses: [{
             statusCode: 200,

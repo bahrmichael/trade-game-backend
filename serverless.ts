@@ -14,6 +14,7 @@ const serverlessConfiguration: AWS = {
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
+      apiKeySourceType: 'AUTHORIZER'
     },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
@@ -26,13 +27,15 @@ const serverlessConfiguration: AWS = {
     },
     iam: {
       deploymentRole: 'arn:aws:iam::${aws:accountId}:role/${self:service}-CloudFormationExecutionRole'
-    }
+    },
   },
   functions,
   package: { individually: true },
   custom: {
     // later replace with a shared URL like https://api.tradegame.dev
     domain: 'https://st1mnt1acj.execute-api.us-east-1.amazonaws.com',
+    discordClientId: '1043200977156714607',
+    discordRedirectUrl: '${self:custom.domain}/${self:provider.stage}/api-key/finish',
     esbuild: {
       bundle: true,
       minify: false,
@@ -50,9 +53,10 @@ const serverlessConfiguration: AWS = {
         url: "${self:custom.domain}/${self:provider.stage}/",
       }],
       security: [{
-        name: 'X-API-KEY',
-        type: 'apiKey',
-        in: 'header',
+        name: 'BearerAuthentication',
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT'
       }],
       models: [{
         name: 'UnauthenticatedResponse',
@@ -101,6 +105,24 @@ const serverlessConfiguration: AWS = {
   },
   resources: {
     Resources: {
+      AuthStateTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          BillingMode: 'PAY_PER_REQUEST',
+          KeySchema: [{
+            AttributeName: 'state',
+            KeyType: 'HASH'
+          }],
+          AttributeDefinitions: [{
+            AttributeName: 'state',
+            AttributeType: 'S'
+          }],
+          TimeToLiveSpecification: {
+            AttributeName: 'timeToLive',
+            Enabled: true,
+          },
+        }
+      },
       ApiGatewayRestApi: {
         Type: 'AWS::ApiGateway::RestApi',
         Properties: {
@@ -119,7 +141,13 @@ const serverlessConfiguration: AWS = {
             'application/json': "{\"message\": \"$context.error.message\", \"error\": \"$context.error.validationErrorString\"}"
           }
         }
-      }
+      },
+      JwtSecretResource: {
+        Type : "AWS::CloudFormation::CustomResource",
+        Properties : {
+          ServiceToken : { 'Fn::GetAtt': ['GenerateJwtSecretLambdaFunction', 'Arn' ] },
+        },
+      },
     }
   }
 };
