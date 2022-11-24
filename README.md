@@ -22,3 +22,6 @@ https://github.com/bahrmichael/trade-game-backend/pull/22
 
 TODO: show custom authorizer in a follow up blog post on securing api routes
 
+## Authentication
+
+Check out https://github.com/bahrmichael/trade-game-backend/blob/main/docs/authentication.md
