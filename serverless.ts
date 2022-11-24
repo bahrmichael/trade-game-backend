@@ -28,9 +28,9 @@ const serverlessConfiguration: AWS = {
     iam: {
       deploymentRole: 'arn:aws:iam::${aws:accountId}:role/${self:service}-CloudFormationExecutionRole'
     },
-    logs: {
-      restApi: true,
-    }
+    // logs: {
+    //   restApi: true,
+    // }
   },
   functions,
   package: { individually: true },
