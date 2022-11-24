@@ -48,5 +48,4 @@ export default {
   tags: {
     function: 'create-api-key-finish'
   },
-  timeout: 15,
 };
