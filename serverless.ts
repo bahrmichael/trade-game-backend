@@ -29,7 +29,9 @@ const serverlessConfiguration: AWS = {
       deploymentRole: 'arn:aws:iam::${aws:accountId}:role/${self:service}-CloudFormationExecutionRole'
     },
     logs: {
-      restApi: true,
+      restApi: {
+        role: 'arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs'
+      }
     }
   },
   functions,
