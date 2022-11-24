@@ -34,3 +34,7 @@ const request = {
 
 You can also test authenticated requests on the OpenAPI page. Go to `https://<instance>/openapi`, click on the Authorize
 button in the top right, and enter the token (without Bearer). Then run a request, and check its request headers and response.
+
+## Implementation Details
+
+See the source code for authentication from the pull requests https://github.com/bahrmichael/trade-game-backend/pull/24 and https://github.com/bahrmichael/trade-game-backend/pull/33.
