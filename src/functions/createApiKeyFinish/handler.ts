@@ -48,14 +48,17 @@ async function createUsagePlan(id: string): Promise<string> {
         }))
     }
 
-    await apigw.send(new UpdateUsagePlanCommand({
-        usagePlanId: usagePlan.id,
-        patchOperations: [{
-            op: 'add',
-            path: '/apiStages',
-            value: `${API_ID}:${VERSION}`
-        }]
-    }))
+    const existingApiStageAttachment = usagePlan.apiStages?.find((apiStage) => apiStage.apiId === API_ID)
+    if (!existingApiStageAttachment) {
+        await apigw.send(new UpdateUsagePlanCommand({
+            usagePlanId: usagePlan.id,
+            patchOperations: [{
+                op: 'add',
+                path: '/apiStages',
+                value: `${API_ID}:${VERSION}`
+            }]
+        }))
+    }
     return usagePlan.id;
 }
 
