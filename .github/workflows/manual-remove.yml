@@ -20,7 +20,7 @@ env:
   VERSION: ${{ inputs.version }}
 
 jobs:
-  deploy:
+  remove:
     runs-on: ubuntu-latest
     concurrency: main
 

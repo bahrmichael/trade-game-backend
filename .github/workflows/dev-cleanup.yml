@@ -13,7 +13,7 @@ env:
   VERSION: pr-$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
 
 jobs:
-  deploy:
+  remove:
     runs-on: ubuntu-latest
     concurrency: ci-${{ github.ref }}
 
