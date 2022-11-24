@@ -20,10 +20,6 @@ You can debug OpenAPI changes by running the command below, and paste it into ed
 serverless openapi generate -o openapi.yaml -f yaml && pbcopy < openapi.yaml
 ```
 
-## Basic OpenAPI
-
-https://github.com/bahrmichael/trade-game-backend/pull/18
-
 ## Authentication
 
 Check out https://github.com/bahrmichael/trade-game-backend/blob/main/docs/authentication.md
