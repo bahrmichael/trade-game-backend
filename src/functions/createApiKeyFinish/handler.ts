@@ -30,22 +30,20 @@ async function createUsagePlan(id: string): Promise<string> {
         // todo: once we have more than 500 usage plans (or users) we need to find a better way
         limit: 500,
     }))
-    const existingPlan = usagePlans.items.find((usagePlan) => usagePlan.name === id);
-    if (existingPlan) {
-        return existingPlan.id;
+    let usagePlan = usagePlans.items.find((usagePlan) => usagePlan.name === id);
+    if (!usagePlan) {
+        usagePlan = await apigw.send(new CreateUsagePlanCommand({
+            name: id,
+            throttle: {
+                rateLimit: 10,
+                burstLimit: 50,
+            },
+            quota: {
+                limit: 1_000,
+                period: "DAY",
+            }
+        }))
     }
-
-    const usagePlan = await apigw.send(new CreateUsagePlanCommand({
-        name: id,
-        throttle: {
-            rateLimit: 10,
-            burstLimit: 50,
-        },
-        quota: {
-            limit: 1_000,
-            period: "DAY",
-        }
-    }))
 
     await apigw.send(new UpdateUsagePlanCommand({
         usagePlanId: usagePlan.id,
@@ -116,8 +114,8 @@ export const main = async (event: APIGatewayProxyEvent) => {
     console.log(userInfoResponse.data)
     const {id} = userInfoResponse.data.user;
 
-    const usagePlanId = await createUsagePlan(id);
-    const apiKey = await createApiKey(id, usagePlanId);
+    const usagePlanId = await createUsagePlan(`${VERSION}-${id}`);
+    const apiKey = await createApiKey(`${VERSION}-${id}`, usagePlanId);
 
     const token = jwt.sign({sub: id, aud: 'player', iss: VERSION, internalApiKey: apiKey}, JWT_SECRET, {});
 
