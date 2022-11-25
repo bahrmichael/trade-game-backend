@@ -48,7 +48,7 @@ export default {
     {
       Effect: 'Allow',
       Action: ['apigateway:GET'],
-      Resource: ['arn:aws:apigateway:${aws:region}::/usageplans']
+      Resource: ['arn:aws:apigateway:${aws:region}::/usageplans', 'arn:aws:apigateway:${aws:region}::/usageplans/*/keys']
     },
     {
       Effect: 'Allow',
