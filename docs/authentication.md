@@ -37,4 +37,7 @@ button in the top right, and enter the token (without Bearer). Then run a reques
 
 ## Implementation Details
 
-See the source code for authentication from the pull requests https://github.com/bahrmichael/trade-game-backend/pull/24 and https://github.com/bahrmichael/trade-game-backend/pull/33.
+See the source code for authentication from these changes 
+- https://github.com/bahrmichael/trade-game-backend/pull/24, 
+- https://github.com/bahrmichael/trade-game-backend/pull/33, and
+- https://github.com/bahrmichael/trade-game-backend/compare/7305137e748665db7b0c9eea34e2c5a3e9370ba2...d61585e1ed7f948659b19eb7ad595c8c74fe912a.
