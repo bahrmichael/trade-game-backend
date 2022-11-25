@@ -68,6 +68,7 @@ async function createApiKey(id: string, usagePlanId: string): Promise<string> {
     }))
 
     for (const existingApiKey of existingApiKeys.items) {
+        console.log('Deleting', existingApiKey, usagePlanId)
         await apigw.send(new DeleteUsagePlanKeyCommand({
             usagePlanId,
             keyId: existingApiKey.id,
