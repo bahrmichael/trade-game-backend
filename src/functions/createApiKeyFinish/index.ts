@@ -47,7 +47,7 @@ export default {
     },
     {
       Effect: 'Allow',
-      Action: ['apigateway:PATCH'],
+      Action: ['apigateway:PATCH', 'apigateway:DELETE'],
       Resource: ['arn:aws:apigateway:${aws:region}::/usageplans/*']
     },
   ],
