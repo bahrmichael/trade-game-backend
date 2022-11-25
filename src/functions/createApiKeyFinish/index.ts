@@ -37,8 +37,13 @@ export default {
     {
 
       Effect: 'Allow',
-      Action: ['apigateway:GET', 'apigateway:DELETE'],
+      Action: ['apigateway:GET'],
       Resource: ['arn:aws:apigateway:${aws:region}::/apikeys']
+    },
+    {
+      Effect: 'Allow',
+      Action: ['apigateway:DELETE'],
+      Resource: ['arn:aws:apigateway:${aws:region}::/apikeys/*']
     },
     {
       Effect: 'Allow',
