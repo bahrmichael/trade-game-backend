@@ -71,13 +71,22 @@ async function createApiKey(id: string, usagePlanId: string): Promise<string> {
         console.log('Loading usage plan keys', {usagePlanId})
         const usagePlanKeys = await apigw.send(new GetUsagePlanKeysCommand({
             usagePlanId,
-        }))
+        }));
         for (const usagePlanKey of usagePlanKeys.items) {
             console.log('Deleting usage plan key', {apiKeyId: existingApiKey.id, usagePlanId: usagePlanKey.id})
-            await apigw.send(new DeleteUsagePlanKeyCommand({
-                usagePlanId: usagePlanKey.id,
-                keyId: existingApiKey.id,
-            }));
+            try {
+                await apigw.send(new DeleteUsagePlanKeyCommand({
+                    usagePlanId: usagePlanKey.id,
+                    keyId: existingApiKey.id,
+                }));
+            } catch (e) {
+                if (e.name === 'NotFoundException') {
+                    console.log(e)
+                    // Not sure why, but even after the list call above we seem to receive usagePlanKeys that don't exist
+                } else {
+                    throw e;
+                }
+            }
         }
         console.log('Deleting api key', {apiKeyId: existingApiKey.id})
         await apigw.send(new DeleteApiKeyCommand({
