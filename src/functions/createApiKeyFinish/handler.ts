@@ -68,11 +68,12 @@ async function createApiKey(id: string, usagePlanId: string): Promise<string> {
     }))
 
     for (const existingApiKey of existingApiKeys.items) {
-        console.log('Deleting', existingApiKey, usagePlanId)
+        console.log('Deleting usage plan key', {apiKeyId: existingApiKey.id, usagePlanId})
         await apigw.send(new DeleteUsagePlanKeyCommand({
             usagePlanId,
             keyId: existingApiKey.id,
-        }))
+        }));
+        console.log('Deleting api key', {apiKeyId: existingApiKey.id})
         await apigw.send(new DeleteApiKeyCommand({
             apiKey: existingApiKey.id,
         }))
