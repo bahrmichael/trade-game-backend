@@ -48,10 +48,8 @@ jobs:
           role-to-assume: arn:aws:iam::${{ secrets.DEV_AWS_ACCOUNT_ID }}:role/trade-game-backend-DeployerRole
           role-session-name: gha_deployer
           aws-region: ${{ env.REGION }}
+      - name: Get Service Info
       - run: npm run info -- --stage ${{ env.VERSION }} --region ${{ env.REGION }} > deploy.info || cat deploy.info
-      - run: cat deploy.info
-      - run: grep -o 'ServiceEndpoint.*' deploy.info
-      - run: "grep -o 'ServiceEndpoint.*' deploy.info | sed 's/ServiceEndpoint: /URL=/'"
       - name: Get Service Endpoint
         id: url
         run: "grep -o 'ServiceEndpoint.*' deploy.info | sed 's/ServiceEndpoint: /URL=/' >> $GITHUB_OUTPUT"
