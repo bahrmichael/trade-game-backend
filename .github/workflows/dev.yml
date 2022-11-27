@@ -49,7 +49,7 @@ jobs:
           role-session-name: gha_deployer
           aws-region: ${{ env.REGION }}
       - name: Get Service Info
-      - run: npm run info -- --stage ${{ env.VERSION }} --region ${{ env.REGION }} > deploy.info || cat deploy.info
+        run: npm run info -- --stage ${{ env.VERSION }} --region ${{ env.REGION }} > deploy.info || cat deploy.info
       - name: Get Service Endpoint
         id: url
         run: "grep -o 'ServiceEndpoint.*' deploy.info | sed 's/ServiceEndpoint: /URL=/' >> $GITHUB_OUTPUT"
