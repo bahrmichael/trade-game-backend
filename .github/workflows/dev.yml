@@ -28,31 +28,27 @@ jobs:
 
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
-      - name: 'Deploying backend to stage: ${{ env.VERSION }}'
+      - name: 'Deploying backend'
         uses: './.github/actions/sls-deploy'
         with:
           stage: ${{ env.VERSION }}
           aws-account-id: ${{ secrets.DEV_AWS_ACCOUNT_ID }}
           aws-region: ${{ env.REGION }}
-  e2e-test:
+  e2e-tests:
     needs: deploy
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
+      - name: 'Get service info'
+        uses: './.github/actions/sls-info'
+        id: service-info
+        with:
+          stage: ${{ env.VERSION }}
+          aws-account-id: ${{ secrets.DEV_AWS_ACCOUNT_ID }}
+          aws-region: ${{ env.REGION }}
       - name: Install Dependencies
         run: npm i
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838 # tag=v1
-        with:
-          role-to-assume: arn:aws:iam::${{ secrets.DEV_AWS_ACCOUNT_ID }}:role/trade-game-backend-DeployerRole
-          role-session-name: gha_deployer
-          aws-region: ${{ env.REGION }}
-      - name: Get Service Info
-        run: npm run info -- --stage ${{ env.VERSION }} --region ${{ env.REGION }} > deploy.info || cat deploy.info
-      - name: Get Service Endpoint
-        id: url
-        run: "grep -o 'ServiceEndpoint.*' deploy.info | sed 's/ServiceEndpoint: /URL=/' >> $GITHUB_OUTPUT"
       - name: Run E2E Tests
-        run: BASE_URL=${{ steps.url.outputs.URL }} npm run test:e2e
+        run: BASE_URL=${{ steps.service-info.outputs.URL }} npm run test:e2e
 
