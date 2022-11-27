@@ -17,7 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
-      - run: npm i
+      - name: Install Dependencies
+        run: npm i
       - name: Unit Tests
         run: npm run test:unit
 
@@ -39,7 +40,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
-      - run: npm i
+      - name: Install Dependencies
+        run: npm i
       - run: npm run info -- --stage ${{ env.VERSION }} --region ${{ env.REGION }}
       - run: cat deploy.info
       - run: grep -o 'ServiceEndpoint.*' deploy.info
