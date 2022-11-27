@@ -53,5 +53,6 @@ jobs:
       - name: Get Service Endpoint
         id: url
         run: "grep -o 'ServiceEndpoint.*' deploy.info | sed 's/ServiceEndpoint: /URL=/' >> $GITHUB_OUTPUT"
-      - run: BASE_URL=${{ steps.url.outputs.URL }} npm run test:e2e
+      - name: Run E2E Tests
+        run: BASE_URL=${{ steps.url.outputs.URL }} npm run test:e2e
 
