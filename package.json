@@ -6,6 +6,7 @@
   "scripts": {
     "generate:openapi": "sls openapi generate -o openapi.json -f json",
     "deploy": "sls deploy",
+    "info": "sls info --verbose > deploy.info",
     "remove": "sls remove",
     "test": "npm run test:unit",
     "test:unit": "jest --config=jest.unit.config.ts",
