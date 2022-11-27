@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
-      - name: 'Removing backend'
+      - name: Remove Backend
         uses: './.github/actions/sls-remove'
         with:
           stage: ${{ env.VERSION }}
