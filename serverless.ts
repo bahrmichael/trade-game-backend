@@ -111,6 +111,30 @@ const serverlessConfiguration: AWS = {
   },
   resources: {
     Resources: {
+      TestKeyTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          BillingMode: 'PAY_PER_REQUEST',
+          KeySchema: [{
+            AttributeName: 'pk',
+            KeyType: 'HASH'
+          }, {
+            AttributeName: 'visibleFrom',
+            KeyType: 'RANGE'
+          }],
+          AttributeDefinitions: [{
+            AttributeName: 'pk',
+            AttributeType: 'S'
+          }, {
+            AttributeName: 'visibleFrom',
+            AttributeType: 'N'
+          }],
+          TimeToLiveSpecification: {
+            AttributeName: 'timeToLive',
+            Enabled: true,
+          },
+        },
+      },
       AuthStateTable: {
         Type: 'AWS::DynamoDB::Table',
         Properties: {
@@ -152,6 +176,13 @@ const serverlessConfiguration: AWS = {
         Type : "AWS::CloudFormation::CustomResource",
         Properties : {
           ServiceToken : { 'Fn::GetAtt': ['GenerateJwtSecretLambdaFunction', 'Arn' ] },
+        },
+      },
+      TestKeyResource: {
+        Type : "AWS::CloudFormation::CustomResource",
+        DependsOn: ['JwtSecretResource'],
+        Properties : {
+          ServiceToken : { 'Fn::GetAtt': ['InitTestKeyLambdaFunction', 'Arn' ] },
         },
       },
     }
