@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 const {JWT_SECRET, VERSION} = process.env;
 
-export function lowerCaseHeaders(headers: any) {
+export function lowerCaseHeaderNames(headers: any) {
     for (const key of Object.keys(headers)) {
         headers[key.toLowerCase()] = headers[key];
     }
@@ -20,7 +20,7 @@ export const main = async (event: APIGatewayAuthorizerEvent) => {
     Lowercase the headers so that the caller doesn't have to respect casing on
     the authorization header. E.g. insomnia sends a lowercase authorization header.
      */
-    event.headers = lowerCaseHeaders(event.headers);
+    event.headers = lowerCaseHeaderNames(event.headers);
     const authorizationToken = event.headers.authorization;
 
     const {methodArn} = event;

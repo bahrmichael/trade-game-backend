@@ -1,4 +1,4 @@
-import {lowerCaseHeaders} from "../handler";
+import {lowerCaseHeaderNames} from "../handler";
 
 it("should lowercase all header names", () => {
     const input = {
@@ -6,7 +6,7 @@ it("should lowercase all header names", () => {
         otherHeader: 'VaLue',
         SomeMore: 'VaLUE'
     }
-    expect(lowerCaseHeaders(input)).toMatchObject({
+    expect(lowerCaseHeaderNames(input)).toMatchObject({
         authorization: 'test',
         otherheader: 'VaLue',
         somemore: 'VaLUE'
