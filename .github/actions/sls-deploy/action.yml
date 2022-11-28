@@ -43,6 +43,9 @@ runs:
     - name: Get Service Info
       shell: bash
       run: npm run export-env -- --stage ${{ inputs.stage }} --region ${{ inputs.aws-region }}
+    - name: Get Service Info for Function
+      shell: bash
+      run: npm run export-env -- --stage ${{ inputs.stage }} --region ${{ inputs.aws-region }} --function InitTestKeyLambdaFunction
     - name: Debug
       shell: bash
       run: cat .env
