@@ -16,11 +16,11 @@ describe('secure-hello', () => {
 
         const tokenRecords = await ddb.send(new QueryCommand({
             TableName: TEST_KEY_TABLE,
-            KeyConditionExpression: 'pk = :k and visibleFrom > :v',
+            KeyConditionExpression: 'pk = :k and visibleFrom < :v',
             ExpressionAttributeValues: {
                 ':k': 'key',
                 ':v': new Date().getTime(),
-            },
+            },// 1669664448451
             ScanIndexForward: false,
             Limit: 1,
         }))
