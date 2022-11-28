@@ -9,7 +9,7 @@ permissions:
 
 env:
   # PR number
-  VERSION: ${{ github.event.number }}
+  VERSION: pr-${{ github.event.number }}
 
 jobs:
   deploy:
