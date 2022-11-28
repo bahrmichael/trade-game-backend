@@ -6,7 +6,7 @@ import {PutCommand} from "@aws-sdk/lib-dynamodb";
 
 const ONE_HOUR = 60 * 60;
 
-const {TABLE} = process.env;
+const {TABLE, JWT_SECRET} = process.env;
 
 async function initToken() {
     const timeToLive = Math.ceil(new Date().getTime() / 1_000) + 2 * ONE_HOUR;
@@ -27,6 +27,7 @@ async function initToken() {
 
 export const main = async (event: CloudFormationCustomResourceEvent, context: any) => {
 
+    console.log({JWT_SECRET})
     const requestType = event.RequestType;
 
     try {

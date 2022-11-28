@@ -2,11 +2,13 @@ import {ddb} from "@libs/ddb-client";
 import {PutCommand} from "@aws-sdk/lib-dynamodb";
 import {createToken} from "@libs/api-key";
 
-const {TABLE} = process.env;
+const {TABLE, JWT_SECRET} = process.env;
 
 const ONE_MINUTE = 60;
 
 export const main = async () => {
+
+  console.log({JWT_SECRET})
 
   const timeToLive = Math.ceil(new Date().getTime() / 1_000) + 120 * ONE_MINUTE;
   const token = await createToken('testUser', timeToLive);
