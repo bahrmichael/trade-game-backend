@@ -215,7 +215,7 @@ const serverlessConfiguration: AWS = {
               Statement: [{
                 Effect: 'Allow',
                 Action: ['dynamodb:Query'],
-                Resource: [{Ref: 'TestKeyTable'}]
+                Resource: [{ 'Fn::GetAtt': ['TestKeyTable', 'Arn' ] }]
               }]
             }
           }]
