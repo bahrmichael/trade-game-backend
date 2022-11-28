@@ -10,6 +10,7 @@ permissions:
 env:
   # PR number
   VERSION: pr-${{ github.event.number }}
+  REGION: us-east-1
 
 jobs:
   unit-tests:
