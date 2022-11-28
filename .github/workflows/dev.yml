@@ -9,7 +9,7 @@ permissions:
 
 env:
   # PR number
-  VERSION: pr-$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+  VERSION: ${{ github.event.number }}
 
 jobs:
   deploy:

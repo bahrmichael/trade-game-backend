@@ -10,7 +10,7 @@ permissions:
 
 env:
   # PR number
-  VERSION: pr-$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+  VERSION: ${{ github.event.number }}
 
 jobs:
   remove:
