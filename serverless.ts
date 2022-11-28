@@ -222,7 +222,7 @@ const serverlessConfiguration: AWS = {
                 Resource: ['*']
               }, {
                 Effect: 'Allow',
-                Action: ['cloudformation:ListStackResources'],
+                Action: ['cloudformation:ListStackResources', 'cloudformation:DescribeStacks'],
                 Resource: ['arn:aws:cloudformation:${aws:region}:${aws:accountId}:stack/trade-game-backend-${self:provider.stage}/*']
               }]
             }
