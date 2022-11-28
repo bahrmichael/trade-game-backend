@@ -34,6 +34,8 @@ jobs:
           stage: ${{ env.VERSION }}
           aws-account-id: ${{ secrets.DEV_AWS_ACCOUNT_ID }}
           aws-region: ${{ env.REGION }}
+      - name: Debug
+        run: cat .env
       - name: Run E2E Tests
         run: npm run test:e2e
 
