@@ -28,6 +28,8 @@
     "ulid": "2.3.0"
   },
   "devDependencies": {
+    "@aws-sdk/client-lambda": "3.218.0",
+    "@aws-sdk/util-utf8-node": "3.208.0",
     "@jest/globals": "29.3.1",
     "@motymichaely/serverless-openapi-documentation": "0.5.3",
     "@serverless/typescript": "3.21.0",

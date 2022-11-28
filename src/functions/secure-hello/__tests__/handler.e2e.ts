@@ -1,8 +1,8 @@
-import {ddb} from "../../../libs/ddb-client";
-import {QueryCommand} from "@aws-sdk/lib-dynamodb";
+import {InvocationType, InvokeCommand, LambdaClient} from "@aws-sdk/client-lambda";
 import client from "../../../libs/__tests__/axios";
+import {fromUtf8, toUtf8} from "@aws-sdk/util-utf8-node";
 
-const {TEST_KEY_TABLE} = process.env;
+const lambda = new LambdaClient({});
 
 function delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
@@ -14,17 +14,16 @@ describe('secure-hello', () => {
 
     beforeAll(async() => {
 
-        const tokenRecords = await ddb.send(new QueryCommand({
-            TableName: TEST_KEY_TABLE,
-            KeyConditionExpression: 'pk = :k and visibleFrom < :v',
-            ExpressionAttributeValues: {
-                ':k': 'key',
-                ':v': new Date().getTime(),
-            },
-            ScanIndexForward: false,
-            Limit: 1,
+        const tokenRecords = await lambda.send(new InvokeCommand({
+            FunctionName: 'GenerateTestKeyLambdaFunction',
+            InvocationType: InvocationType.RequestResponse,
+            Payload: fromUtf8(JSON.stringify({test: '123'}))
         }))
-        token = tokenRecords.Items[0]?.token
+
+        const payload = toUtf8(tokenRecords.Payload);
+        const data = JSON.parse(payload);
+
+        token = data?.token
         if (!token) {
             throw Error(`Could not find a token in the table.`);
         }

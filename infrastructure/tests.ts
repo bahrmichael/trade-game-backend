@@ -23,13 +23,6 @@ export default {
             },
         },
     },
-    TestKeyResource: {
-        Type: "AWS::CloudFormation::CustomResource",
-        DependsOn: ['JwtSecretResource', 'ApiGatewayRestApi', 'TestKeyTable'],
-        Properties: {
-            ServiceToken: {'Fn::GetAtt': ['InitTestKeyLambdaFunction', 'Arn']},
-        },
-    },
     TestUserRole: {
         Type: 'AWS::IAM::Role',
         Properties: {
@@ -59,8 +52,8 @@ export default {
                     Version: '2012-10-17',
                     Statement: [{
                         Effect: 'Allow',
-                        Action: ['dynamodb:Query'],
-                        Resource: [{'Fn::GetAtt': ['TestKeyTable', 'Arn']}]
+                        Action: ['lambda:InvokeFunction'],
+                        Resource: [{ 'Fn::GetAtt': ['GenerateTestKeyLambdaFunction', 'Arn' ] }]
                     }, {
                         Effect: 'Allow',
                         Action: ['cloudformation:ListExports'],

@@ -17,7 +17,7 @@ export default {
   iamRoleStatements: [
     {
       Effect: 'Allow',
-      Action: ['dynamodb:PutItem'],
+      Action: ['dynamodb:PutItem', 'dynamodb:Query'],
       Resource: { 'Fn::GetAtt': ['TestKeyTable', 'Arn' ] },
     },
     ...API_KEY_IAM,
