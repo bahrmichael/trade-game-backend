@@ -20,7 +20,7 @@ describe('secure-hello', () => {
             ExpressionAttributeValues: {
                 ':k': 'key',
                 ':v': new Date().getTime(),
-            },// 1669664448451
+            },
             ScanIndexForward: false,
             Limit: 1,
         }))
