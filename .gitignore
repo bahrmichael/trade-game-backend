@@ -12,3 +12,5 @@ jspm_packages
 notes.md
 openapi.json
 .DS_Store
+
+.env
