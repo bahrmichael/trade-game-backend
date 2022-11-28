@@ -4,7 +4,7 @@ import {API_KEY_IAM} from "@libs/iam";
 export default {
     handler: `${handlerPath(__dirname)}/handler.main`,
     environment: {
-        TABLE: { Ref: 'TestKeyTable' },
+        TEST_KEY_TABLE: { Ref: 'TestKeyTable' },
         JWT_SECRET: {'Fn::GetAtt': ['JwtSecretResource', 'JwtSecret' ]},
         VERSION: '${self:provider.stage}',
         API_ID: {Ref: 'ApiGatewayRestApi'},

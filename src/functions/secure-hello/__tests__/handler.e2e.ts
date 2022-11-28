@@ -2,7 +2,7 @@ import {ddb} from "../../../libs/ddb-client";
 import {QueryCommand} from "@aws-sdk/lib-dynamodb";
 import client from "../../../libs/__tests__/axios";
 
-const {TEST_TOKEN_TABLE} = process.env;
+const {TEST_KEY_TABLE} = process.env;
 
 function delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
@@ -15,7 +15,7 @@ describe('secure-hello', () => {
     beforeAll(async() => {
 
         const tokenRecords = await ddb.send(new QueryCommand({
-            TableName: TEST_TOKEN_TABLE,
+            TableName: TEST_KEY_TABLE,
             KeyConditionExpression: 'pk = :k',
             FilterExpression: 'visibleFrom > :v and timeToLive > :v',
             ExpressionAttributeValues: {

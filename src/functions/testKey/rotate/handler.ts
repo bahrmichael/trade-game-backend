@@ -2,7 +2,7 @@ import {ddb} from "@libs/ddb-client";
 import {PutCommand} from "@aws-sdk/lib-dynamodb";
 import {createToken} from "@libs/api-key";
 
-const {TABLE, JWT_SECRET} = process.env;
+const {TEST_KEY_TABLE, JWT_SECRET} = process.env;
 
 const ONE_MINUTE = 60;
 
@@ -16,7 +16,7 @@ export const main = async () => {
   const visibleFrom = new Date(new Date().getTime() + 1_000 * ONE_MINUTE * 5).getTime();
 
   await ddb.send(new PutCommand({
-    TableName: TABLE,
+    TableName: TEST_KEY_TABLE,
     Item: {
       pk: 'key',
       visibleFrom,
