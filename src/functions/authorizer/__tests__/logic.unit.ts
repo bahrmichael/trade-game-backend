@@ -1,6 +1,6 @@
 import {lowerCaseHeaders} from "../handler";
 
-it("should lowercase all headers", () => {
+it("should lowercase all header names", () => {
     const input = {
         Authorization: 'test',
         otherHeader: 'VaLue',
