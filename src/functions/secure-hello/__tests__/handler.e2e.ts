@@ -59,7 +59,7 @@ describe('secure-hello', () => {
 
 
     it('should receive a hello message', async() => {
-        const result = await client.post(`/hello`, { name: 'Michael' }, {
+        const result = await client.post(`/secure-hello`, { name: 'Michael' }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
