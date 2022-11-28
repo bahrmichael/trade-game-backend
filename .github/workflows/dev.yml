@@ -36,6 +36,12 @@ jobs:
           aws-region: ${{ env.REGION }}
       - name: Debug
         run: cat .env
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838 # tag=v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.DEV_AWS_ACCOUNT_ID }}:role/trade-game-backend-${{ env.VERSION }}-TestUserRole
+          role-session-name: test_user
+          aws-region: ${{ env.REGION }}
       - name: Run E2E Tests
         run: npm run test:e2e
 
