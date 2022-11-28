@@ -8,7 +8,8 @@ permissions:
   contents: read  # This is required for actions/checkout
 
 env:
-  REGION: us-east-1
+  # PR number
+  VERSION: pr-${{ github.event.number }}
 
 jobs:
   unit-tests:
@@ -29,7 +30,7 @@ jobs:
       - name: 'Deploying backend to stage: ${{ env.VERSION }}'
         uses: './.github/actions/sls-deploy'
         with:
-          stage: pr-${{ github.event.number }}
+          stage: ${{ env.VERSION }}
           aws-account-id: ${{ secrets.DEV_AWS_ACCOUNT_ID }}
           aws-region: ${{ env.REGION }}
       - name: Debug
