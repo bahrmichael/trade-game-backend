@@ -6,7 +6,7 @@
   "scripts": {
     "generate:openapi": "sls openapi generate -o openapi.json -f json",
     "deploy": "sls deploy",
-    "info": "sls info --verbose",
+    "export-env": "sls export-env",
     "remove": "sls remove",
     "test": "npm run test:unit",
     "test:unit": "jest --config=jest.unit.config.ts",
@@ -39,6 +39,7 @@
     "json-schema-to-ts": "2.5.5",
     "serverless": "3.24.1",
     "serverless-esbuild": "1.33.2",
+    "serverless-export-env": "github:arabold/serverless-export-env",
     "serverless-iam-roles-per-function": "3.2.0",
     "serverless-openapi-documenter": "0.0.23",
     "serverless-plugin-log-retention": "2.0.0",

@@ -6,7 +6,13 @@ import * as postHelloSchema from "@functions/hello/schema"
 const serverlessConfiguration: AWS = {
   service: 'trade-game-backend',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention', 'serverless-iam-roles-per-function', '@motymichaely/serverless-openapi-documentation'],
+  plugins: [
+    'serverless-esbuild',
+    'serverless-plugin-log-retention',
+    'serverless-iam-roles-per-function',
+    '@motymichaely/serverless-openapi-documentation',
+    'serverless-export-env'
+  ],
   provider: {
     name: 'aws',
     runtime: 'nodejs16.x',

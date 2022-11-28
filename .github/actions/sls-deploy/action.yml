@@ -42,13 +42,16 @@ runs:
 
     - name: Get Service Info
       shell: bash
-      run: npm run info -- --stage ${{ inputs.stage }} --region ${{ inputs.aws-region }} > deploy.info
-    - name: Get Service Endpoint
-      id: service-endpoint
+      run: npm run export-env -- --stage ${{ inputs.stage }} --region ${{ inputs.aws-region }}
+    - name: Debug
       shell: bash
-      run: "grep -o 'ServiceEndpoint.*' deploy.info | sed 's/ServiceEndpoint: /URL=/' >> $GITHUB_OUTPUT"
-
-outputs:
-  service-endoint:
-    description: "Service Endpoint"
-    value: ${{ steps.service-endpoint.outputs.URL }}
+      run: cat .env
+#    - name: Get Service Endpoint
+#      id: service-endpoint
+#      shell: bash
+#      run: "grep -o 'ServiceEndpoint.*' deploy.info | sed 's/ServiceEndpoint: /URL=/' >> $GITHUB_OUTPUT"
+#
+#outputs:
+#  service-endoint:
+#    description: "Service Endpoint"
+#    value: ${{ steps.service-endpoint.outputs.URL }}
