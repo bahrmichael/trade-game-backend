@@ -216,6 +216,10 @@ const serverlessConfiguration: AWS = {
                 Effect: 'Allow',
                 Action: ['dynamodb:Query'],
                 Resource: [{ 'Fn::GetAtt': ['TestKeyTable', 'Arn' ] }]
+              }, {
+                Effect: 'Allow',
+                Action: ['cloudformation:ListExports'],
+                Resource: ['*']
               }]
             }
           }]

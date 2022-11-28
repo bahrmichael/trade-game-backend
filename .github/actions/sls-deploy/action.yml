@@ -39,7 +39,3 @@ runs:
     - name: Deploy backend
       shell: bash
       run: npm run deploy -- --conceal --stage ${{ inputs.stage }} --region ${{ inputs.aws-region }}
-
-    - name: Get Service Info
-      shell: bash
-      run: npm run export-env -- --stage ${{ inputs.stage }} --region ${{ inputs.aws-region }} --all
