@@ -30,7 +30,7 @@
     "@types/aws-lambda": "8.10.108",
     "@types/node": "18.11.9",
     "esbuild": "0.15.15",
-    "json-schema-to-ts": "2.5.5",
+    "json-schema-to-ts": "2.6.0",
     "serverless": "3.24.1",
     "serverless-esbuild": "1.33.2",
     "serverless-iam-roles-per-function": "3.2.0",
