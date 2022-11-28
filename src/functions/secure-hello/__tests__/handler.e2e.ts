@@ -24,9 +24,10 @@ describe('secure-hello', () => {
             ScanIndexForward: false,
             Limit: 1,
         }))
+        console.log(tokenRecords)
         token = tokenRecords.Items[0]
         if (!token) {
-            throw Error('Could not find a token in the table.');
+            throw Error(`Could not find a token in the table: ${JSON.stringify(tokenRecords)}`);
         }
 
         // try for up to two minutes
