@@ -53,7 +53,7 @@ export default {
                     Statement: [{
                         Effect: 'Allow',
                         Action: ['lambda:InvokeFunction'],
-                        Resource: [{ 'Fn::GetAtt': ['GenerateTestKeyLambdaFunction', 'Arn' ] }]
+                        Resource: ['arn:aws:lambda:${aws:region}:${aws:accountId}:function:GenerateTestKeyLambdaFunction']
                     }, {
                         Effect: 'Allow',
                         Action: ['cloudformation:ListExports'],
