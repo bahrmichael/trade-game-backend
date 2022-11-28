@@ -25,7 +25,7 @@ describe('secure-hello', () => {
             Limit: 1,
         }))
         console.log(tokenRecords)
-        token = tokenRecords.Items[0]
+        token = tokenRecords.Items[0]?.token
         if (!token) {
             throw Error(`Could not find a token in the table: ${JSON.stringify(tokenRecords)}`);
         }
