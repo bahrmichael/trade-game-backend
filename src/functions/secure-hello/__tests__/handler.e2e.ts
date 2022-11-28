@@ -4,6 +4,8 @@ import {fromUtf8, toUtf8} from "@aws-sdk/util-utf8-node";
 
 const lambda = new LambdaClient({});
 
+const {VERSION} = process.env;
+
 function delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 }
@@ -15,7 +17,7 @@ describe('secure-hello', () => {
     beforeAll(async() => {
 
         const tokenRecords = await lambda.send(new InvokeCommand({
-            FunctionName: 'GenerateTestKeyLambdaFunction',
+            FunctionName: `trade-game-backend-${VERSION}-generateTestKey`,
             InvocationType: InvocationType.RequestResponse,
             Payload: fromUtf8(JSON.stringify({test: '123'}))
         }))

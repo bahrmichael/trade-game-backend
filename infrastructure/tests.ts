@@ -53,7 +53,7 @@ export default {
                     Statement: [{
                         Effect: 'Allow',
                         Action: ['lambda:InvokeFunction'],
-                        Resource: ['arn:aws:lambda:${aws:region}:${aws:accountId}:function:GenerateTestKeyLambdaFunction']
+                        Resource: ['arn:aws:lambda:${aws:region}:${aws:accountId}:function:${self:service}-${self:provider.stage}-generateTestKey']
                     }, {
                         Effect: 'Allow',
                         Action: ['cloudformation:ListExports'],
