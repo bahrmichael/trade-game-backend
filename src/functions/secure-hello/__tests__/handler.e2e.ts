@@ -16,8 +16,8 @@ describe('secure-hello', () => {
 
         const tokenRecords = await ddb.send(new QueryCommand({
             TableName: TEST_KEY_TABLE,
-            KeyConditionExpression: 'pk = :k',
-            FilterExpression: 'visibleFrom > :v and timeToLive > :v',
+            KeyConditionExpression: 'pk = :k and visibleFrom > :v',
+            FilterExpression: 'timeToLive > :v',
             ExpressionAttributeValues: {
                 ':k': 'key',
                 ':v': new Date().getTime(),
