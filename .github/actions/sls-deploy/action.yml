@@ -49,6 +49,9 @@ runs:
     - name: Debug
       shell: bash
       run: cat .env
+    - name: Debug
+      shell: bash
+      run: cat .env-InitTestKeyLambdaFunction
 #    - name: Get Service Endpoint
 #      id: service-endpoint
 #      shell: bash
