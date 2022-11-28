@@ -30,11 +30,10 @@ jobs:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
       - name: Deploy Backend
         uses: './.github/actions/sls-deploy'
-        id: deploy
         with:
           stage: ${{ env.VERSION }}
           aws-account-id: ${{ secrets.DEV_AWS_ACCOUNT_ID }}
           aws-region: ${{ env.REGION }}
       - name: Run E2E Tests
-        run: BASE_URL=${{ steps.deploy.outputs.service-endoint }} npm run test:e2e
+        run: npm run test:e2e
 
