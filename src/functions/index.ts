@@ -5,5 +5,4 @@ export { default as createApiKeyStart } from './createApiKeyStart';
 export { default as createApiKeyFinish } from './createApiKeyFinish';
 export { default as generateJwtSecret } from './generateJwtSecret';
 export { default as authorizer } from './authorizer';
-export { default as initTestKey } from './testKey/init';
 export { default as rotateTestKey } from './testKey/rotate';

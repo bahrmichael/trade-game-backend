@@ -23,13 +23,6 @@ export default {
             },
         },
     },
-    TestKeyResource: {
-        Type: "AWS::CloudFormation::CustomResource",
-        DependsOn: ['JwtSecretResource', 'ApiGatewayRestApi', 'TestKeyTable'],
-        Properties: {
-            ServiceToken: {'Fn::GetAtt': ['InitTestKeyLambdaFunction', 'Arn']},
-        },
-    },
     TestUserRole: {
         Type: 'AWS::IAM::Role',
         Properties: {
