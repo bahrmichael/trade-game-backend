@@ -25,7 +25,7 @@ export default {
     },
     TestKeyResource: {
         Type: "AWS::CloudFormation::CustomResource",
-        DependsOn: ['JwtSecretResource'],
+        DependsOn: ['JwtSecretResource', 'ApiGatewayRestApi', 'TestKeyTable'],
         Properties: {
             ServiceToken: {'Fn::GetAtt': ['InitTestKeyLambdaFunction', 'Arn']},
         },
