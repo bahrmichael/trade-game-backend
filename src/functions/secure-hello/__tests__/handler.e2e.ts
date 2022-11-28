@@ -64,6 +64,6 @@ describe('secure-hello', () => {
                 Authorization: `Bearer ${token}`
             }
         })
-        expect(result.data.message).toBe('Hello Michael, welcome to the exciting Serverless world!')
+        expect(result.data.message).toBe('Hello Michael, your Discord ID is testUser')
     })
 })
