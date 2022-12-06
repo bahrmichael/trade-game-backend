@@ -149,10 +149,6 @@ export const definition = {
         "For each api key": {
             "Type": "Map",
             "Iterator": {
-            // "ItemProcessor": {
-            //     "ProcessorConfig": {
-            //         "Mode": "INLINE"
-            //     },
                 "StartAt": "GetUsagePlanKeys",
                 "States": {
                     "GetUsagePlanKeys": {
@@ -167,10 +163,6 @@ export const definition = {
                     "For each usage plan key": {
                         "Type": "Map",
                         "Iterator": {
-                        // "ItemProcessor": {
-                            // "ProcessorConfig": {
-                            //     "Mode": "INLINE"
-                            // },
                             "StartAt": "DeleteUsagePlanKey",
                             "States": {
                                 "DeleteUsagePlanKey": {
