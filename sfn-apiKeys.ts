@@ -1,4 +1,4 @@
-export default {
+export const definition = {
     "Comment": "A description of my state machine",
     "StartAt": "ListExistingUsagePlans",
     "States": {

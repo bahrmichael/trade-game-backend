@@ -2,7 +2,7 @@ import type {AWS} from '@serverless/typescript';
 
 import * as functions from "@functions/index";
 import * as postHelloSchema from "@functions/hello/schema"
-import apiKeysSfnDefinition from "./sfn-apiKeys"
+import {definition} from "./sfn-apiKeys"
 
 const serverlessConfiguration: AWS & {stepFunctions: any} = {
   service: 'trade-game-backend',
@@ -35,7 +35,7 @@ const serverlessConfiguration: AWS & {stepFunctions: any} = {
     stateMachines: {
       apiKeyStateMachine: {
         name: "${self:provider.stage}-ApiKeys",
-        definition: apiKeysSfnDefinition
+        definition
       }
     }
   },
