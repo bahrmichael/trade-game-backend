@@ -48,8 +48,10 @@ export const definition = {
             "Type": "Choice",
             "Choices": [
                 {
-                    "Variable": "$.usagePlan",
-                    "IsPresent": true,
+                    "Not": {
+                        "Variable": "$.usagePlan",
+                        "IsNull": true
+                    },
                     "Next": "Find matching api stage attachment"
                 }
             ],
@@ -110,8 +112,10 @@ export const definition = {
             "Type": "Choice",
             "Choices": [
                 {
-                    "Variable": "$.apiStageAttachment",
-                    "IsPresent": true,
+                    "Not": {
+                        "Variable": "$.apiStageAttachment",
+                        "IsNull": true
+                    },
                     "Next": "GetApiKeys"
                 }
             ],
@@ -144,10 +148,11 @@ export const definition = {
         },
         "For each api key": {
             "Type": "Map",
-            "ItemProcessor": {
-                "ProcessorConfig": {
-                    "Mode": "INLINE"
-                },
+            "Iterator": {
+            // "ItemProcessor": {
+            //     "ProcessorConfig": {
+            //         "Mode": "INLINE"
+            //     },
                 "StartAt": "GetUsagePlanKeys",
                 "States": {
                     "GetUsagePlanKeys": {
@@ -161,10 +166,11 @@ export const definition = {
                     },
                     "For each usage plan key": {
                         "Type": "Map",
-                        "ItemProcessor": {
-                            "ProcessorConfig": {
-                                "Mode": "INLINE"
-                            },
+                        "Iterator": {
+                        // "ItemProcessor": {
+                            // "ProcessorConfig": {
+                            //     "Mode": "INLINE"
+                            // },
                             "StartAt": "DeleteUsagePlanKey",
                             "States": {
                                 "DeleteUsagePlanKey": {
