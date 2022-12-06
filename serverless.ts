@@ -31,6 +31,7 @@ const serverlessConfiguration: AWS & {stepFunctions: any} = {
     },
   },
   stepFunctions: {
+    validate: true,
     stateMachines: {
       apiKeyStateMachine: {
         name: "${self:provider.stage}-ApiKeys",
