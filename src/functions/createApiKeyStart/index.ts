@@ -5,7 +5,7 @@ export default {
   environment: {
     CLIENT_ID: '${self:custom.discordClientId}',
     REDIRECT_URL: "${self:custom.discordRedirectUrl}",
-    TABLE: { Ref: 'AuthStateTable' }
+    AUTH_STATE_TABLE: { Ref: 'AuthStateTable' }
   },
   events: [
     {

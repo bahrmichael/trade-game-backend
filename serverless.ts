@@ -2,11 +2,18 @@ import type {AWS} from '@serverless/typescript';
 
 import * as functions from "@functions/index";
 import * as postHelloSchema from "@functions/hello/schema"
+import testsInfra from 'infrastructure/tests';
 
 const serverlessConfiguration: AWS = {
   service: 'trade-game-backend',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention', 'serverless-iam-roles-per-function', '@motymichaely/serverless-openapi-documentation'],
+  plugins: [
+    'serverless-esbuild',
+    'serverless-plugin-log-retention',
+    'serverless-iam-roles-per-function',
+    '@motymichaely/serverless-openapi-documentation',
+    'serverless-export-env'
+  ],
   provider: {
     name: 'aws',
     runtime: 'nodejs16.x',
@@ -148,6 +155,7 @@ const serverlessConfiguration: AWS = {
           ServiceToken : { 'Fn::GetAtt': ['GenerateJwtSecretLambdaFunction', 'Arn' ] },
         },
       },
+      ...testsInfra,
     }
   }
 };

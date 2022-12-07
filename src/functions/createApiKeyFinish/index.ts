@@ -1,4 +1,5 @@
 import { handlerPath } from '@libs/handler-resolver';
+import { API_KEY_IAM } from "@libs/iam";
 
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
@@ -29,32 +30,7 @@ export default {
       Action: ['secretsmanager:GetSecretValue'],
       Resource: ['arn:aws:secretsmanager:${aws:region}:${aws:accountId}:secret:discord_client_secret-0NJgyw'],
     },
-    {
-      Effect: 'Allow',
-      Action: ['apigateway:POST'],
-      Resource: ['arn:aws:apigateway:${aws:region}::/usageplans', 'arn:aws:apigateway:${aws:region}::/apikeys', 'arn:aws:apigateway:${aws:region}::/usageplans/*/keys']
-    },
-    {
-
-      Effect: 'Allow',
-      Action: ['apigateway:GET'],
-      Resource: ['arn:aws:apigateway:${aws:region}::/apikeys']
-    },
-    {
-      Effect: 'Allow',
-      Action: ['apigateway:DELETE'],
-      Resource: ['arn:aws:apigateway:${aws:region}::/apikeys/*']
-    },
-    {
-      Effect: 'Allow',
-      Action: ['apigateway:GET'],
-      Resource: ['arn:aws:apigateway:${aws:region}::/usageplans', 'arn:aws:apigateway:${aws:region}::/usageplans/*/keys']
-    },
-    {
-      Effect: 'Allow',
-      Action: ['apigateway:PATCH', 'apigateway:DELETE'],
-      Resource: ['arn:aws:apigateway:${aws:region}::/usageplans/*']
-    },
+    ...API_KEY_IAM,
   ],
   tags: {
     function: 'create-api-key-finish'
