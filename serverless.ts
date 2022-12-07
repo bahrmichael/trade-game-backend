@@ -2,11 +2,12 @@ import type {AWS} from '@serverless/typescript';
 
 import * as functions from "@functions/index";
 import * as postHelloSchema from "@functions/hello/schema"
+import {definition} from "./sfn-apiKeys"
 
-const serverlessConfiguration: AWS = {
+const serverlessConfiguration: AWS & {stepFunctions: any} = {
   service: 'trade-game-backend',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention', 'serverless-iam-roles-per-function', '@motymichaely/serverless-openapi-documentation'],
+  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention', 'serverless-iam-roles-per-function', '@motymichaely/serverless-openapi-documentation', 'serverless-step-functions'],
   provider: {
     name: 'aws',
     runtime: 'nodejs16.x',
@@ -28,6 +29,15 @@ const serverlessConfiguration: AWS = {
     iam: {
       deploymentRole: 'arn:aws:iam::${aws:accountId}:role/${self:service}-CloudFormationExecutionRole'
     },
+  },
+  stepFunctions: {
+    validate: true,
+    stateMachines: {
+      apiKeyStateMachine: {
+        name: "${self:provider.stage}-ApiKeys",
+        definition
+      }
+    }
   },
   functions,
   package: { individually: true },
