@@ -34,10 +34,10 @@ const serverlessConfiguration: AWS = {
   custom: {
     domain: 'https://${self:provider.stage}.api.apiempires.com',
     discordClientId: '1043200977156714607',
-    discordRedirectUrl: '${self:custom.domain}/${self:provider.stage}/api-key/finish',
+    discordRedirectUrl: '${self:custom.domain}/api-key/finish',
     customDomain: {
       domainName: '${self:provider.stage}.api.apiempires.com',
-      basePath: '${self:provider.stage}',
+      basePath: '*',
       certificateName: '*.api.apiempires.com',
       stage: '${self:provider.stage}',
       createRoute53Record: true,
@@ -57,7 +57,7 @@ const serverlessConfiguration: AWS = {
       title: 'Trade Game API',
       version: '${self:provider.stage}',
       servers: [{
-        url: "${self:custom.domain}/${self:provider.stage}/",
+        url: "${self:custom.domain}/",
       }],
       security: [{
         name: 'BearerAuthentication',
