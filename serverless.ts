@@ -37,7 +37,6 @@ const serverlessConfiguration: AWS = {
     discordRedirectUrl: '${self:custom.domain}/api-key/finish',
     customDomain: {
       domainName: '${self:provider.stage}.api.apiempires.com',
-      basePath: '*',
       certificateName: '*.api.apiempires.com',
       stage: '${self:provider.stage}',
       createRoute53Record: true,
