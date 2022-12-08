@@ -6,7 +6,7 @@ import * as postHelloSchema from "@functions/hello/schema"
 const serverlessConfiguration: AWS = {
   service: 'trade-game-backend',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention', 'serverless-iam-roles-per-function', '@motymichaely/serverless-openapi-documentation'],
+  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention', 'serverless-iam-roles-per-function', '@motymichaely/serverless-openapi-documentation', 'serverless-domain-manager'],
   provider: {
     name: 'aws',
     runtime: 'nodejs16.x',
@@ -32,10 +32,16 @@ const serverlessConfiguration: AWS = {
   functions,
   package: { individually: true },
   custom: {
-    // later replace with a shared URL like https://api.tradegame.dev
-    domain: 'https://api.apiempires.com',
+    domain: 'https://${self:provider.stage}.api.apiempires.com',
     discordClientId: '1043200977156714607',
-    discordRedirectUrl: '${self:custom.domain}/${self:provider.stage}/api-key/finish',
+    discordRedirectUrl: '${self:custom.domain}/api-key/finish',
+    customDomain: {
+      domainName: '${self:provider.stage}.api.apiempires.com',
+      certificateName: '*.api.apiempires.com',
+      stage: '${self:provider.stage}',
+      createRoute53Record: true,
+      autoDomain: true,
+    },
     esbuild: {
       bundle: true,
       minify: false,
@@ -50,7 +56,7 @@ const serverlessConfiguration: AWS = {
       title: 'Trade Game API',
       version: '${self:provider.stage}',
       servers: [{
-        url: "${self:custom.domain}/${self:provider.stage}/",
+        url: "${self:custom.domain}/",
       }],
       security: [{
         name: 'BearerAuthentication',
