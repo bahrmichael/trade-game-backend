@@ -158,6 +158,12 @@ const serverlessConfiguration: AWS & {stepFunctions: any} = {
           ServiceToken : { 'Fn::GetAtt': ['GenerateJwtSecretLambdaFunction', 'Arn' ] },
         },
       },
+      DiscordProxyRegistration: {
+        Type : "AWS::CloudFormation::CustomResource",
+        Properties : {
+          ServiceToken : { 'Fn::GetAtt': ['DiscordProxyRegistrationLambdaFunction', 'Arn' ] },
+        },
+      },
     }
   }
 };
