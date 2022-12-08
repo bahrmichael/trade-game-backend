@@ -35,7 +35,6 @@
     "serverless-domain-manager": "6.2.1",
     "serverless-esbuild": "1.33.2",
     "serverless-iam-roles-per-function": "3.2.0",
-    "serverless-openapi-documenter": "0.0.26",
     "serverless-plugin-log-retention": "2.0.0",
     "ts-node": "10.9.1",
     "tsconfig-paths": "4.1.0",
