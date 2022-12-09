@@ -105,6 +105,60 @@ const serverlessConfiguration: AWS = {
   },
   resources: {
     Resources: {
+      OrdersTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          BillingMode: 'PAY_PER_REQUEST',
+          KeySchema: [{
+            AttributeName: 'ownerId',
+            KeyType: 'HASH'
+          }, {
+            AttributeName: 'orderId',
+            KeyType: 'RANGE'
+          }],
+          GlobalSecondaryIndexes: [{
+            IndexName: 'GSI1',
+            KeySchema: [{
+              AttributeName: 'gsi1pk',
+              KeyType: 'HASH'
+            }, {
+              AttributeName: 'orderId',
+              KeyType: 'RANGE'
+            }],
+            Projection: {
+              ProjectionType: 'ALL'
+            }
+          }, {
+            IndexName: 'GSI2',
+            KeySchema: [{
+              AttributeName: 'lockTransport',
+              KeyType: 'HASH'
+            }, {
+              AttributeName: 'orderId',
+              KeyType: 'RANGE'
+            }],
+            Projection: {
+              ProjectionType: 'ALL'
+            }
+          }],
+          AttributeDefinitions: [{
+            AttributeName: 'orderId',
+            AttributeType: 'S'
+          }, {
+            AttributeName: 'ownerId',
+            AttributeType: 'S'
+          }, {
+            AttributeName: 'lockTransport',
+            AttributeType: 'S'
+          }, {
+            AttributeName: 'gsi1pk',
+            AttributeType: 'S'
+          }],
+          StreamSpecification: {
+            StreamViewType: 'NEW_AND_OLD_IMAGE'
+          },
+        }
+      },
       AuthStateTable: {
         Type: 'AWS::DynamoDB::Table',
         Properties: {
