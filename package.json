@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@motymichaely/serverless-openapi-documentation": "0.5.3",
-    "@serverless/typescript": "3.21.0",
+    "@serverless/typescript": "3.25.0",
     "@types/aws-lambda": "8.10.108",
     "@types/node": "18.11.9",
     "esbuild": "0.15.15",
