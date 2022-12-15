@@ -3,10 +3,12 @@ import type {AWS} from '@serverless/typescript';
 import * as functions from "@functions/index";
 import * as postHelloSchema from "@functions/hello/schema"
 
-const serverlessConfiguration: AWS = {
+import {definition as exchangeDefinition} from "./src/state-machines/exchange"
+
+const serverlessConfiguration: AWS & {stepFunctions: any} = {
   service: 'trade-game-backend',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention', 'serverless-iam-roles-per-function', '@motymichaely/serverless-openapi-documentation'],
+  plugins: ['serverless-esbuild', 'serverless-plugin-log-retention', 'serverless-iam-roles-per-function', '@motymichaely/serverless-openapi-documentation', 'serverless-step-functions'],
   provider: {
     name: 'aws',
     runtime: 'nodejs16.x',
@@ -28,6 +30,15 @@ const serverlessConfiguration: AWS = {
     iam: {
       deploymentRole: 'arn:aws:iam::${aws:accountId}:role/${self:service}-CloudFormationExecutionRole'
     },
+  },
+  stepFunctions: {
+    validate: true,
+    stateMachines: {
+      exchangeStateMachine: {
+        name: "${self:provider.stage}-Exchange",
+        definition: exchangeDefinition,
+      }
+    }
   },
   functions,
   package: { individually: true },
@@ -104,6 +115,12 @@ const serverlessConfiguration: AWS = {
     }
   },
   resources: {
+    Outputs: {
+      ExchangeStateMachine: {
+        Description: 'The ARN of the Exchange State Machine',
+        Value: { Ref: "${self:provider.stage}-Exchange" }
+      }
+    },
     Resources: {
       ExchangeLockTable: {
         Type: 'AWS::DynamoDB::Table',
