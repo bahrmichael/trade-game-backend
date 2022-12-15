@@ -5,5 +5,6 @@ export { default as createApiKeyStart } from './createApiKeyStart';
 export { default as createApiKeyFinish } from './createApiKeyFinish';
 export { default as generateJwtSecret } from './generateJwtSecret';
 export { default as authorizer } from './authorizer';
-export { default as exchangeMatchOrders } from './engine/exchange/matchOrders';
-export { default as exchangeStartSfn } from './engine/exchange/startSfn';
+export { default as engineExchangeMatchOrders } from './engine/exchange/matchOrders';
+export { default as engineExchangeStartSfn } from './engine/exchange/startSfn';
+export { default as engineBalance } from './engine/balance';
