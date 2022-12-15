@@ -8,8 +8,11 @@ export default {
   events: [
     {
       stream: {
-        type: 'dynamodb', // todo: filter to Insert events
-        arn: {'Fn::GetAtt': ['OrdersTable', 'StreamArn']}
+        type: 'dynamodb',
+        arn: {'Fn::GetAtt': ['OrdersTable', 'StreamArn']},
+        filterPatterns: [{
+          eventName: ['INSERT'],
+        }]
       }
     },
   ],
