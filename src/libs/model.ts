@@ -1,15 +1,10 @@
 export interface Player {
-    id: string;
-}
-
-export interface Wallet {
-    ownerId: string;
-    walletId: string;
+    playerId: string;
     balance: number;
 }
 
 export interface Transaction {
-    walletId: string;
+    ownerId: string;
     transactionId: string;
     amount: number;
     created: string;
@@ -25,17 +20,17 @@ export interface Loan {
 export interface Transport {
     ownerId: string;
     transportId: string;
+    cargo: Cargo;
 }
 
 export interface Building {
     ownerId: string;
     buildingId: string;
+    cargo: Cargo;
 }
 
 export interface Cargo {
-    parentId: string;
-    cargoId: string;
-    space: number;
+    volume: number;
     items: { good: Good, quantity: number }[]
 }
 
@@ -49,8 +44,7 @@ export interface Order {
     orderType: OrderType;
     good: Good;
     quantity: number;
-    // If an order is place from or for a transport, that transport can't move
-    locksTransport?: string;
+    pricePerUnit: number;
     // GSI1
     gsi1pk: OrderGsi1pk
 }

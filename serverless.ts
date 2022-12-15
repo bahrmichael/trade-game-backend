@@ -105,6 +105,54 @@ const serverlessConfiguration: AWS = {
   },
   resources: {
     Resources: {
+      ExchangeLockTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          BillingMode: 'PAY_PER_REQUEST',
+          KeySchema: [{
+            AttributeName: 'lockId',
+            KeyType: 'HASH'
+          }],
+          AttributeDefinitions: [{
+            AttributeName: 'lockId',
+            AttributeType: 'S'
+          }],
+        }
+      },
+      PlayersTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          BillingMode: 'PAY_PER_REQUEST',
+          KeySchema: [{
+            AttributeName: 'playerId',
+            KeyType: 'HASH'
+          }],
+          AttributeDefinitions: [{
+            AttributeName: 'playerId',
+            AttributeType: 'S'
+          }],
+        }
+      },
+      TransactionsTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          BillingMode: 'PAY_PER_REQUEST',
+          KeySchema: [{
+            AttributeName: 'ownerId',
+            KeyType: 'HASH'
+          }, {
+            AttributeName: 'transactionId',
+            KeyType: 'RANGE'
+          }],
+          AttributeDefinitions: [{
+            AttributeName: 'ownerId',
+            AttributeType: 'S'
+          }, {
+            AttributeName: 'transactionId',
+            AttributeType: 'S'
+          }],
+        }
+      },
       OrdersTable: {
         Type: 'AWS::DynamoDB::Table',
         Properties: {
