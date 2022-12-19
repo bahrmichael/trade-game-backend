@@ -110,7 +110,7 @@ export const definition = {
         },
         "For each Update": {
             "Type": "Map",
-            "ItemProcessor": {
+            "Iterator": {
                 "ProcessorConfig": {
                     "Mode": "INLINE"
                 },
