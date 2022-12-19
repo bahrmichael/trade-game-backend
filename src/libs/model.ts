@@ -20,18 +20,19 @@ export interface Loan {
 export interface Transport {
     ownerId: string;
     transportId: string;
-    cargo: Cargo;
 }
 
 export interface Building {
     ownerId: string;
     buildingId: string;
-    cargo: Cargo;
 }
 
-export interface Cargo {
-    volume: number;
-    items: { good: Good, quantity: number }[]
+export interface StorageUnit {
+    storageUnitId: string;
+    ownerId: string;
+    locationId: string;
+    good: Good;
+    quantity: number;
 }
 
 export type Good = 'potato'

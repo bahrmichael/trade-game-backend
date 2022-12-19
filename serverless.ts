@@ -136,6 +136,20 @@ const serverlessConfiguration: AWS & {stepFunctions: any} = {
           }],
         }
       },
+      StorageUnitsTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+          BillingMode: 'PAY_PER_REQUEST',
+          KeySchema: [{
+            AttributeName: 'storageUnitId',
+            KeyType: 'HASH'
+          }],
+          AttributeDefinitions: [{
+            AttributeName: 'storageUnitId',
+            AttributeType: 'S'
+          }],
+        }
+      },
       PlayersTable: {
         Type: 'AWS::DynamoDB::Table',
         Properties: {
