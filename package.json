@@ -7,7 +7,8 @@
     "generate:openapi": "sls openapi generate -o openapi.json -f json",
     "deploy": "sls deploy",
     "remove": "sls remove",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test:unit",
+    "test:unit": "jest --config=jest.unit.config.ts"
   },
   "engines": {
     "node": "19.0.1"
@@ -16,6 +17,7 @@
     "@aws-sdk/client-api-gateway": "3.218.0",
     "@aws-sdk/client-dynamodb": "3.218.0",
     "@aws-sdk/client-secrets-manager": "3.218.0",
+    "@aws-sdk/client-sfn": "^3.231.0",
     "@aws-sdk/lib-dynamodb": "3.218.0",
     "@middy/core": "3.6.2",
     "@middy/http-json-body-parser": "3.6.2",
@@ -25,17 +27,22 @@
     "ulid": "2.3.0"
   },
   "devDependencies": {
+    "@jest/globals": "29.3.1",
     "@motymichaely/serverless-openapi-documentation": "0.5.3",
     "@serverless/typescript": "3.25.0",
     "@types/aws-lambda": "8.10.109",
+    "@types/jest": "29.2.3",
     "@types/node": "18.11.9",
     "esbuild": "0.15.16",
+    "jest": "29.3.1",
     "json-schema-to-ts": "2.6.2",
     "serverless": "3.25.1",
     "serverless-domain-manager": "6.2.1",
     "serverless-esbuild": "1.33.2",
     "serverless-iam-roles-per-function": "3.2.0",
     "serverless-plugin-log-retention": "2.0.0",
+    "serverless-step-functions": "^3.11.1",
+    "ts-jest": "29.0.3",
     "ts-node": "10.9.1",
     "tsconfig-paths": "4.1.0",
     "typescript": "4.9.3"
