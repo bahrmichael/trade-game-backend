@@ -111,9 +111,6 @@ export const definition = {
         "For each Update": {
             "Type": "Map",
             "Iterator": {
-                "ProcessorConfig": {
-                    "Mode": "INLINE"
-                },
                 "StartAt": "DynamoDB GetItem",
                 "States": {
                     "DynamoDB GetItem": {
