@@ -11,7 +11,7 @@ export const definition = {
             "Type": "Task",
             "Resource": "arn:aws:states:::dynamodb:getItem",
             "Parameters": {
-                "TableName": "ExchangeLockTable",
+                "TableName": {Ref: "ExchangeLockTable"},
                 "Key": {
                     "lockId": {
                         "S.$": "$.lockId"
@@ -41,7 +41,7 @@ export const definition = {
             "Type": "Task",
             "Resource": "arn:aws:states:::dynamodb:putItem",
             "Parameters": {
-                "TableName": "ExchangeLockTable",
+                "TableName": {Ref: "ExchangeLockTable"},
                 "Item": {
                     "lockId": {
                         "S.$": "$.lockId"
@@ -54,7 +54,7 @@ export const definition = {
         "List Matchable Orders": {
             "Type": "Task",
             "Parameters": {
-                "TableName": "OrdersTable",
+                "TableName": {Ref: "OrdersTable"},
                 "IndexName": "GSI1",
                 "KeyConditionExpression": "gsi1 = :k",
                 "FilterExpression": "$.listMatchableOrdersFilter",
@@ -90,7 +90,7 @@ export const definition = {
             "OutputPath": "$.Payload",
             "Parameters": {
                 "Payload.$": "$",
-                "FunctionName": "MatchOrdersFunction"
+                "FunctionName": {'Fn::GetAtt': ['EngineExchangeMatchOrdersLambdaFunction', 'Arn' ]}
             },
             "Retry": [
                 {
@@ -120,7 +120,7 @@ export const definition = {
                         "Type": "Task",
                         "Resource": "arn:aws:states:::dynamodb:getItem",
                         "Parameters": {
-                            "TableName": "OrdersTable",
+                            "TableName": {Ref: "OrdersTable"},
                             "Key": {
                                 "orderId": {
                                     "S.$": "$.orderId"
@@ -145,7 +145,7 @@ export const definition = {
                         "Type": "Task",
                         "Resource": "arn:aws:states:::dynamodb:deleteItem",
                         "Parameters": {
-                            "TableName": "OrdersTable",
+                            "TableName": {Ref: "OrdersTable"},
                             "Key": {
                                 "orderId": {
                                     "S.$": "$.orderId"
@@ -172,7 +172,7 @@ export const definition = {
                         "OutputPath": "$.Payload",
                         "Parameters": {
                             "Payload.$": "$",
-                            "FunctionName": "calculateMe"
+                            "FunctionName": {'Fn::GetAtt': ['EngineExchangeCalculateTransactionAmountLambdaFunction', 'Arn' ]}
                         },
                         "Retry": [
                             {
@@ -192,18 +192,24 @@ export const definition = {
                     },
                     "Add Goods": {
                         "Type": "Task",
-                        "Resource": "arn:aws:states:::dynamodb:updateItem",
+                        "Resource": "arn:aws:states:::dynamodb:putItem",
                         "Parameters": {
-                            "TableName": "MyDynamoDBTable",
-                            "Key": {
-                                "Column": {
-                                    "S": "MyEntry"
-                                }
-                            },
-                            "UpdateExpression": "SET MyKey = :myValueRef",
-                            "ExpressionAttributeValues": {
-                                ":myValueRef": {
-                                    "S": "MyValue"
+                            "TableName": {Ref: "StorageUnitsTable"},
+                            "Item": {
+                                "ownerId": {
+                                    "S.$": "$.Item.ownerId"
+                                },
+                                "storageUnitId": {
+                                    "S.$": "States.UUID()"
+                                },
+                                "locationId": {
+                                    "S.$": "$.Item.atBuildingId"
+                                },
+                                "good": {
+                                    "S.$": "$.Item.good"
+                                },
+                                "quantity": {
+                                    "N.$": "$.delta"
                                 }
                             }
                         },
@@ -213,7 +219,7 @@ export const definition = {
                         "Type": "Task",
                         "Resource": "arn:aws:states:::dynamodb:putItem",
                         "Parameters": {
-                            "TableName": "TransactionsTable",
+                            "TableName": {Ref:"TransactionsTable"},
                             "Item": {
                                 "ownerId": {
                                     "S.$": "$.Item.ownerId"
@@ -235,7 +241,7 @@ export const definition = {
                         "Type": "Task",
                         "Resource": "arn:aws:states:::dynamodb:updateItem",
                         "Parameters": {
-                            "TableName": "OrdersTable",
+                            "TableName": {Ref:"OrdersTable"},
                             "Key": {
                                 "orderId": {
                                     "S.$": "$.orderId"
@@ -261,7 +267,7 @@ export const definition = {
             "Type": "Task",
             "Resource": "arn:aws:states:::dynamodb:deleteItem",
             "Parameters": {
-                "TableName": "ExchangeLockTable",
+                "TableName": {Ref: "ExchangeLockTable"},
                 "Key": {
                     "lockId": {
                         "S.$": "$.lockId"
