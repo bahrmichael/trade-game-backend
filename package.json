@@ -19,7 +19,7 @@
     "@aws-sdk/lib-dynamodb": "3.223.0",
     "@middy/core": "3.6.2",
     "@middy/http-json-body-parser": "3.6.2",
-    "axios": "1.2.0",
+    "axios": "1.2.1",
     "generate-api-key": "1.0.2",
     "jsonwebtoken": "8.5.1",
     "ulid": "2.3.0"
