@@ -13,10 +13,10 @@
     "node": "19.0.1"
   },
   "dependencies": {
-    "@aws-sdk/client-api-gateway": "3.223.0",
-    "@aws-sdk/client-dynamodb": "3.223.0",
-    "@aws-sdk/client-secrets-manager": "3.223.0",
-    "@aws-sdk/lib-dynamodb": "3.223.0",
+    "@aws-sdk/client-api-gateway": "3.224.0",
+    "@aws-sdk/client-dynamodb": "3.224.0",
+    "@aws-sdk/client-secrets-manager": "3.224.0",
+    "@aws-sdk/lib-dynamodb": "3.224.0",
     "@middy/core": "3.6.2",
     "@middy/http-json-body-parser": "3.6.2",
     "axios": "1.2.1",
