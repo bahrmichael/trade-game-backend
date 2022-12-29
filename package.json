@@ -28,7 +28,7 @@
     "@motymichaely/serverless-openapi-documentation": "0.5.3",
     "@serverless/typescript": "3.25.0",
     "@types/aws-lambda": "8.10.109",
-    "@types/node": "18.11.11",
+    "@types/node": "18.11.12",
     "esbuild": "0.15.18",
     "json-schema-to-ts": "2.6.2",
     "serverless": "3.25.1",
