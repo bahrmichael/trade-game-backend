@@ -17,7 +17,7 @@
     "@aws-sdk/client-dynamodb": "3.226.0",
     "@aws-sdk/client-secrets-manager": "3.226.0",
     "@aws-sdk/lib-dynamodb": "3.226.0",
-    "@middy/core": "4.0.4",
+    "@middy/core": "4.0.5",
     "@middy/http-json-body-parser": "4.0.4",
     "axios": "1.2.1",
     "generate-api-key": "1.0.2",
